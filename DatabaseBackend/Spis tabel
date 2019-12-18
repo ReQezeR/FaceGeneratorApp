@@ -1,0 +1,12 @@
+AttributeAssignmentID
+
+
+Appearance(ID,AssignmentID)
+AttributeAssignment(ID, FaceID, EyesID, NoseID, LipsID, EarsID, HairID)
+
+Eyes(ID,Shape,Size,Colour,Path)
+Lips(ID,Shape,Size,Colour,Path)
+Nose(ID,Shape,Size,Colour,Path)
+Face(ID,Shape,Size,Colour,Path)
+Ears(ID,Shape,Size,Colour,Path)
+Hair(ID,Type,Colour,Path)
