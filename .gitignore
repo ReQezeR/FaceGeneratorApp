@@ -103,6 +103,7 @@ celerybeat.pid
 
 # Environments
 .idea
+idea/
 .env
 .venv
 env/
@@ -133,3 +134,4 @@ dmypy.json
 /dataSources/
 /dataSources.local.xml
 .idea/Database.iml
+/.idea/
