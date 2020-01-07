@@ -107,13 +107,12 @@ class DatabasePage(tk.Frame):
 
     def callback(self):
         for typ, n in self.names.items():
-            print('%s [ %s ]' % (typ, n.get()))
-            self.dataSet = self.controller.database.get_data_from_table(str(n.get()))
-            print(self.dataSet)
-            self.table.redraw()
+            self.dataSet = self.controller.database.get_data_from_table(str(n.get())) # wczytanie nowych danych
+            self.custom_table.destroy()  # usunięcie starej tabeli
+            self.custom_table = self.customTkTable(self.input_frame)  # stworzenie nowej z aktualnymi danymi
+            self.custom_table.pack(fill=tk.BOTH, expand=1)  # rozmieszczenie
 
     def createButton(self, cont):
-
         button = tk.Button(cont, text="GET", command=self.callback, bg="#666666", width=10)
         return button
 
@@ -149,14 +148,14 @@ class DatabasePage(tk.Frame):
         self.x = self.winfo_reqwidth()
         self.y = self.winfo_reqheight()
 
-        input_frame = tk.Frame(self, borderwidth=2, relief=tk.GROOVE, background="white")
+        self.input_frame = tk.Frame(self, borderwidth=2, relief=tk.GROOVE, background="white")
         self.names = {}
-        self.entry = self.createEntry(input_frame)
+        self.entry = self.createEntry(self.input_frame)
         self.entry.pack(fill=tk.BOTH, expand=0)
-        self.custom_table = self.customTkTable(input_frame)
+        self.custom_table = self.customTkTable(self.input_frame)
         self.custom_table.pack(fill=tk.BOTH, expand=1)
-        # self.table.grid(row=1, column=1, sticky="nsew", padx=10, pady=15)
-        input_frame.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=10, pady=10)
+
+        self.input_frame.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=10, pady=10)
 
         content_frame = tk.Frame(self, borderwidth=2, relief=tk.GROOVE, background="white")
         self.createMenu(content_frame).pack(fill=tk.Y, expand=0)

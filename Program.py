@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import font as tkfont
-from DatabaseFrontend.ModernMenu import Menu
+from DatabaseFrontend.MenuPage import Menu
 from DatabaseFrontend.GeneratorPage import GeneratorPage
-from DatabaseFrontend.ModernDatabasePage import DatabasePage
+from DatabaseFrontend.DatabasePage import DatabasePage
 from DatabaseBackend.Backend import DbProvider
 
 
