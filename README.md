@@ -2,7 +2,9 @@
 ## Overview
 FaceGeneratorApp is an database project written in python and sql
 ## Description
-Korzystając z wygenerowanych przez AI twarzy: https://generated.photos/ tworzymy aplikacje, która z dostępnych elementów generuje zmodyfikowane twarze. 
+Korzystając z wygenerowanych przez AI twarzy: https://generated.photos/ tworzymy aplikacje, która z dostępnych elementów generuje zmodyfikowane twarze.    
+Schemat bazy danych wykorzystany przy tworzeniu aplikacji:
+![DatabaseDiagram](DatabaseBackend/DB_Diagram.png)
 ## Tools
 * Python 3.6
 * Sqlite / Django
@@ -19,9 +21,10 @@ Korzystając z wygenerowanych przez AI twarzy: https://generated.photos/ tworzym
 TODO
 ## Credits
 * **Michał Popiel** - *GUI* - [ReQezeR](https://github.com/ReQezeR)
-* **Norbert Młynarski** - *Generator-współbieżność* 
-* **Jakub Kusiowski** - *Generator*
-* **Nikodem Janaszak** - *Database*
+* **Norbert Młynarski** - *Generator-współbieżność* [bibiosm98](https://github.com/bibiosm98)
+* **Nikodem Janaszak** - *Database* [NikodemJanaszak](https://github.com/NikodemJanaszak)
+* **Jakub Kusiowski** - *Generator* [JKusio](https://github.com/JKusio)
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
