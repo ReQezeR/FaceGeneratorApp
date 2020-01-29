@@ -32,7 +32,7 @@ class DbProvider:
     def __init__(self):
         self.dataSet = {}
         # Create database if not exist and get a connection to it
-        self.connection = sqlite3.connect('DatabaseBackend/db.sqlite')
+        self.connection = sqlite3.connect('C:\\Users\\ReQezeR\\PycharmProjects\\Database\\DatabaseBackend\\db.sqlite')
         # Get a cursor to execute sql statements
         self.cursor = self.connection.cursor()
 
@@ -228,8 +228,10 @@ class DbProvider:
 
 if __name__ == "__main__":
     db = DbProvider()
-    # db.custom_face.insert_into_table("Hiena","Dzikie zwierze","DatabaseBackend/Files/hiena.jpg")
-    # db.custom_face.insert_into_table("Lew","Dzikie zwierze","DatabaseBackend/Files/lew.jpg")
+    # db.custom_face.insert_into_table("Face1","Europe","DatabaseBackend/Files/Faces/Face-01/face-1.jpg")
+    # db.custom_face.insert_into_table("Face2","Africa","DatabaseBackend/Files/Faces/Face-02/face-2.jpg")
+    # db.custom_face.insert_into_table("Face3", "Europe", "DatabaseBackend/Files/Faces/Face-03/face-3.jpg")
+    # db.custom_face.insert_into_table("Face4", "Asia", "DatabaseBackend/Files/Faces/face-5.jpg")
     db.get_data_from_table("CustomFace")
     # db.insert_into_table('Face', 'tempName')
     # db.get_data_from_table('Face')
