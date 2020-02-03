@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import font as tkfont
 from tkinter import messagebox
+
 from PIL import Image, ImageTk
-import tkintertable as tktable
-from DatabaseFrontend.CustomCanvasTable import CustomCanvas
+from pandastable import Table, pd
 
 
 class DatabasePage(tk.Frame):
@@ -90,18 +90,23 @@ class DatabasePage(tk.Frame):
         temp_label_2.pack()
         return main_frame
 
-    def customTkTable(self, parent):
+    def customPandasTable(self, parent):
         field = tk.LabelFrame(parent, bd=0, bg="#515E5A")
-        field.pack(fill=tk.Y, expand=1)
+        field.pack(fill=tk.BOTH, expand=1)
 
-        self.table = tktable.TableCanvas(field, data=self.dataSet, bg="#000000", insertbackground="black", selectbackground="white")
-        self.table.cellbackgr = "#FFFFFF"
-        self.table.multipleselectioncolor = "#FFFFFF"
-        self.table.rowselectedcolor = "#8BB0F9"
-        self.table.selectedcolor = "#2B20FF"
-        self.table.grid_color = "#FFFFFF"
+        df = pd.DataFrame(self.dataSet) # wczytanie danych
 
-        CustomCanvas(self.table).adjustColumnWidths()
+        df = df.transpose()  # transpozycja danych ( zamiana wierszy z kolumnami )
+
+        def set_order(cols_order): # fix kolejnosci kolumn
+            x = []
+            for i in cols_order:
+                x.append(list(df.columns).index(i))
+            return x
+
+        df = df[df.columns[set_order(list(self.dataSet[str(0)].keys()))]]
+
+        self.table = Table(field, dataframe=df, showtoolbar=False, showstatusbar=False)
         self.table.show()
         return field
 
@@ -109,7 +114,7 @@ class DatabasePage(tk.Frame):
         for typ, n in self.names.items():
             self.dataSet = self.controller.database.get_data_from_table(str(n.get())) # wczytanie nowych danych
             self.custom_table.destroy()  # usunięcie starej tabeli
-            self.custom_table = self.customTkTable(self.input_frame)  # stworzenie nowej z aktualnymi danymi
+            self.custom_table = self.customPandasTable(self.input_frame) # stworzenie nowej z aktualnymi danymi
             self.custom_table.pack(fill=tk.BOTH, expand=1)  # rozmieszczenie
 
     def createButton(self, cont):
@@ -152,7 +157,7 @@ class DatabasePage(tk.Frame):
         self.names = {}
         self.entry = self.createEntry(self.input_frame)
         self.entry.pack(fill=tk.BOTH, expand=0)
-        self.custom_table = self.customTkTable(self.input_frame)
+        self.custom_table = self.customPandasTable(self.input_frame)
         self.custom_table.pack(fill=tk.BOTH, expand=1)
 
         self.input_frame.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=10, pady=10)
