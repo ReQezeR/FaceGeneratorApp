@@ -1,0 +1,3 @@
+Żeby odpalić projekt sprawdź czy w pliku api.py jest import --> from rest_framework import routers
+
+Jak nadal nie będize działać to --> https://stackoverflow.com/questions/56166319/python-django-error-oserror-winerror-123-the-filename-directory-name-or-vol
