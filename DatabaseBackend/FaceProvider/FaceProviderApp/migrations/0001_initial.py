@@ -84,9 +84,9 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='ChairVector',
+            name='HairVector',
             fields=[
-                ('ChairVectorID', models.AutoField(primary_key=True, serialize=False)),
+                ('HairVectorID', models.AutoField(primary_key=True, serialize=False)),
                 ('Vector', models.TextField()),
                 ('ImageID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='FaceProviderApp.Image')),
             ],
