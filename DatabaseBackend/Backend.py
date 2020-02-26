@@ -1,7 +1,13 @@
+import os
 import sqlite3
 
 
 class DbProvider:
+    def database_path(self, relative):
+        p = os.path.join(os.environ.get("_MEIPASS2", os.path.abspath(".")), relative)
+        print(p)
+        return p
+
     def get_data_from_table(self, table_name):
         #  Get headers of table
         header_request = '''SELECT name FROM PRAGMA_TABLE_INFO('{}')'''.format(table_name)
@@ -30,9 +36,16 @@ class DbProvider:
         return dataset
 
     def __init__(self):
+        self.path = self.database_path('DB\db.sqlite')
         self.dataSet = {}
+
+        if not os.path.isfile(self.path):
+            try:
+                os.mkdir(self.database_path("DB"))
+            except:
+                pass
         # Create database if not exist and get a connection to it
-        self.connection = sqlite3.connect('C:\\Users\\ReQezeR\\PycharmProjects\\Database\\DatabaseBackend\\db.sqlite')
+        self.connection = sqlite3.connect(self.path)
         # Get a cursor to execute sql statements
         self.cursor = self.connection.cursor()
 
@@ -190,7 +203,7 @@ class DbProvider:
 
     class Appearance:  # Appearance
         def insert_into_table(self, assignmentID, filePath):
-            sql = '''INSERT INTO Appearance (AssignmentID, Path) VALUES ({}, '{}');'''.format(assignmentID, filePath)
+            sql = '''INSERT INTO Appearance (AssignmentID, Path, Time) VALUES ({}, '{}',DATETIME('now','localtime'));'''.format(assignmentID, filePath)
             self.cursor.execute(sql)
             self.connection.commit()
 
@@ -201,6 +214,7 @@ class DbProvider:
             (ID INTEGER PRIMARY KEY AUTOINCREMENT,
             AssignmentID INTEGER,
             Path varchar(100),
+            Time varchar(100),
             FOREIGN KEY(AssignmentID) references AttributeAssignment(ID)
             )'''
             self.cursor.execute(sql)

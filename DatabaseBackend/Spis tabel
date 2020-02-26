@@ -1,12 +1,24 @@
 AttributeAssignmentID
 
 
-Appearance(ID,AssignmentID)
-AttributeAssignment(ID, FaceID, EyesID, NoseID, LipsID, EarsID, HairID)
+Appearance(ID,AssignmentID,SkinType, Date, Path)
+AttributeAssignment(ID, FaceID, EyesID, EyeBrowsID, NoseID, LipsID, EarsID, HairID)
 
-Eyes(ID,Shape,Size,Colour,Path)
-Lips(ID,Shape,Size,Colour,Path)
-Nose(ID,Shape,Size,Colour,Path)
-Face(ID,Shape,Size,Colour,Path)
-Ears(ID,Shape,Size,Colour,Path)
-Hair(ID,Type,Colour,Path)
+Eyes(ID,SkinType, L_ID, R_ID)
+Eye(ID, Size, Colour, SkinType, Side, Path)
+
+EyeBrows(ID,SkinType, L_ID, R_ID)
+EyeBrow(ID, Size, Colour, SkinType, Side, Path)
+
+Mouth(ID,SkinType,Size,Colour,Path)
+
+Nose(ID,SkinType,Size,Path)
+
+Face(ID,SkinType,Size,Path)
+
+Ears(ID,SkinType, L_ID, R_ID)
+Ear(ID,Size,SkinType,Side,Path)
+
+Hair(ID,Type,Colour,SkinType,Path)
+
+SkinType(ID, Name, HEX)

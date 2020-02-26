@@ -1,3 +1,5 @@
+import os
+import sys
 import tkinter as tk
 from tkinter import font as tkfont
 from DatabaseFrontend.MenuPage import Menu
@@ -10,6 +12,7 @@ class App(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         self.database = DbProvider()
+        self.t1 = None
         self.title_font = tkfont.Font(family='Helvetica', size=40, weight="bold", slant="italic")
         self.sizeFlag = False
         # the container is where we'll stack a bunch of frames
@@ -33,6 +36,11 @@ class App(tk.Tk):
 
         self.show_frame("Menu")
 
+    def exit_callback(self):
+        # self.t1.kill()
+        # self.t1.join()
+        self.destroy()
+
     def make_window_bigger(self):
         self.geometry('1200x650')
         self.minsize(1200, 650)
@@ -53,9 +61,20 @@ class App(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
+    # path to files include in exe
+    def resource_path(self, relative_path):
+        default = "Frontend/Images/"
+        relative_path = default + relative_path
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+        return os.path.join(base_path, relative_path)
+
 
 if __name__ == "__main__":
     app = App()
+    app.wm_protocol("WM_DELETE_WINDOW", app.exit_callback)
     app.minsize(440, 650)
     app.title("Database Client")
     app.geometry("440x650")

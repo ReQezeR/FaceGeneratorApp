@@ -1,17 +1,32 @@
+import os
+import threading
 import tkinter as tk
+from datetime import datetime
 from tkinter import font as tkfont
+
+
 from PIL import Image, ImageTk
 import random
+import cv2
+
+from DatabaseBackend.Backend import DbProvider
+from DatabaseBackend.ThreadManagement import ThreadWithTrace
+from Generator.Generator import Generator
 
 
 class GeneratorPage(tk.Frame):
-    def loadImage(self, path):
-        self.placeholderImage = Image.open(str(path))
-        size = (500,400)
-        resized = self.placeholderImage.resize(size, Image.ANTIALIAS)
-        self.image = ImageTk.PhotoImage(resized)
-        self.display.delete("IMG")
-        self.display.create_image(0, 0, image=self.image, anchor=tk.NW, tags="IMG")
+    def file_path(self, relative):
+        p = os.path.join(os.environ.get("_MEIPASS2", os.path.abspath(".")), relative)
+        return p
+
+    def loadImage(self, path=None):
+        size = (500, 400)
+        if path != None:
+            self.placeholderImage = Image.open(str(path))
+            resized = self.placeholderImage.resize(size, Image.ANTIALIAS)
+            self.image = ImageTk.PhotoImage(resized)
+            self.display.delete("IMG")
+            self.display.create_image(0, 0, image=self.image, anchor=tk.NW, tags="IMG")
 
     def resize(self, event):
         # size = (int(590+self.winfo_width() *0.1), int(400 + self.winfo_height()*0.2))
@@ -40,6 +55,49 @@ class GeneratorPage(tk.Frame):
         # l1.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
         return topFrame
 
+    def changeImage(self, image):
+        size = (500, 400)
+        self.placeholderImage = image
+        resized = cv2.resize(self.placeholderImage, size)
+        self.image = ImageTk.PhotoImage(resized)
+        self.display.delete("IMG")
+        self.display.create_image(0, 0, image=self.image, anchor=tk.NW, tags="IMG")
+
+    def randomFeatures(self):
+        # DbProvider()
+        #TODO: funkcja losujaca
+        #TODO: wylosowane dane wpisać do DbProvider().AttributeAssignment
+
+        return {'face': "Files/Features/InputFace-00/face.png", 'l_ear': "Files/Features/InputFace-00/l_ear.png", 'r_ear': "Files/Features/InputFace-00/r_ear.png",
+                    'l_eye': "Files/Features/InputFace-00/l_eye.png", 'r_eye': "Files/Features/InputFace-00/r_eye.png", 'l_eyebrow': "Files/Features/InputFace-00/l_eyebrow.png",
+                    'r_eyebrow': "Files/Features/InputFace-00/r_eyebrow.png", 'nose': "Files/Features/InputFace-00/nose.png", 'mouth': "Files/Features/InputFace-00/mouth.png",
+                    'hair': "Files/Features/InputFace-00/hair.png", 'suit': "Files/Features/InputFace-00/suit.png"}
+
+    def runGenerator(self):
+        self.controller.t1 = ThreadWithTrace(target=self._runGenerator)
+        self.controller.t1.start()
+
+    def _runGenerator(self):
+        g = Generator()
+        g.get_files(self.randomFeatures())
+        g.create_face()
+        lock = threading.Lock()
+        lock.acquire()
+        # TODO: aktualizacja bazy danych po wygenerowaniu twarzy
+        # DbProvider().AttributeAssignment.insert_into_table(1, 1, 1, 1, 1, 1)
+        if not os.path.isfile("Files\\Faces\\"):
+            try:
+                os.mkdir(self.file_path("Files\\Faces\\"))
+            except:
+                pass
+        filename = "Face_" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S')+".png"
+        path = "Files\\Faces\\"+filename
+        DbProvider().appearance.insert_into_table(1, path)
+        g.write_face(self.file_path(path))
+        self.loadImage(self.file_path(path))
+
+        lock.release()
+
     def changeData(self):
         i = 0
         x = list(self.dataSet.keys())
@@ -58,8 +116,8 @@ class GeneratorPage(tk.Frame):
                 input = tk.StringVar()
                 input.set(str(self.dataSet[str(number)][item]))
                 self.d[i].configure(textvariable=input)
-            if i == len(self.dataSet[str(number)])-1:
-                self.loadImage(self.dataSet[str(number)][item])
+            if i == len(self.dataSet[str(number)]) - 1:
+                self.loadImage(path=self.dataSet[str(number)][item])
             i += 1
 
     def createDataTable(self, parent):
@@ -173,5 +231,5 @@ class GeneratorPage(tk.Frame):
         return_button.pack(side=tk.LEFT, padx=10, pady=5)
 
         random_button = tk.Button(self, text="Random", image=self.randomButtonImage, bd=0, bg="white",
-                                  command=lambda: self.changeData())  # Create random button
+                                  command=lambda: self.runGenerator())  # Create random button
         random_button.pack(side=tk.RIGHT, fill=tk.X, padx=10, pady=5)
