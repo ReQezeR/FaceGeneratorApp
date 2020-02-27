@@ -79,10 +79,10 @@ Later those points are used to cut image into proper pieces which are used in ge
 You need to install [Node.js](https://nodejs.org/en/) to be able to use [npm](https://www.npmjs.com/) packages.
 
 Go into FaceGeneratorDesktop directory and run this command:
-* npm install
+`npm install`
 This command will install all packages
 Then if you want to run app use
-* npm start
+`npm start`
 It will start the app in debug mode (with console open).
 
 ## Attributions 
