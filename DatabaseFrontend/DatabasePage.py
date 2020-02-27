@@ -91,60 +91,78 @@ class DatabasePage(tk.Frame):
         return main_frame
 
     def customPandasTable(self, parent):
-        field = tk.LabelFrame(parent, bd=0, bg="#515E5A")
-        field.pack(fill=tk.BOTH, expand=1)
-
-        df = pd.DataFrame(self.dataSet) # wczytanie danych
-
-        df = df.transpose()  # transpozycja danych ( zamiana wierszy z kolumnami )
-
         def set_order(cols_order): # fix kolejnosci kolumn
             x = []
             for i in cols_order:
                 x.append(list(df.columns).index(i))
             return x
 
-        df = df[df.columns[set_order(list(self.dataSet[str(0)].keys()))]]
+        field = tk.LabelFrame(parent, bd=0, bg="#515E5A")
+        field.pack(fill=tk.BOTH, expand=1)
+
+        df = pd.DataFrame(self.dataSet)  # wczytanie danych
+
+        df = df.transpose()  # transpozycja danych ( zamiana wierszy z kolumnami )
+
+        if df.keys().__len__() is not 0:
+            df = df[df.columns[set_order(list(self.dataSet[str(0)].keys()))]]
+
+        if 'Result' in df.columns:
+            df['AssignmentID'] = df['AssignmentID'].astype(int)
+        if 'ID' in df.columns:
+            df['ID'] = df['ID'].astype(int)
+
+        print(df['ID'].dtype)
 
         self.table = Table(field, dataframe=df, showtoolbar=False, showstatusbar=False)
         self.table.show()
         return field
 
+    def enterCallback(self, event):
+        if event.keycode == 13:
+            self.callback()
+
     def callback(self):
         for typ, n in self.names.items():
-            self.dataSet = self.controller.database.get_data_from_table(str(n.get())) # wczytanie nowych danych
-            self.custom_table.destroy()  # usunięcie starej tabeli
-            self.custom_table = self.customPandasTable(self.input_frame) # stworzenie nowej z aktualnymi danymi
-            self.custom_table.pack(fill=tk.BOTH, expand=1)  # rozmieszczenie
+            query = str(n.get())
+            print(query)
+            if query.__len__() > 3:
+                self.dataSet = self.controller.database.get_data_from_table(str(n.get())) # wczytanie nowych danych
+                self.custom_table.destroy()  # usunięcie starej tabeli
+                self.custom_table = self.customPandasTable(self.input_frame) # stworzenie nowej z aktualnymi danymi
+                self.custom_table.pack(fill=tk.BOTH, expand=1)  # rozmieszczenie
 
     def createButton(self, cont):
         button = tk.Button(cont, text="GET", command=self.callback, bg="#666666", width=10)
         return button
 
     def createEntry(self, parent, temp_width=50, labelName="wartosc"):
-        dataFrame = tk.Frame(parent, width=30, bd=0, bg="white")
-        dataFrame.columnconfigure(0, weight=1)
-        dataFrame.columnconfigure(1, weight=1)
-        dataFrame.columnconfigure(2, weight=1)
-        dataFrame.columnconfigure(3, weight=1)
-        self.createButton(dataFrame).grid(row=0, column=2)
+        entryFrame = tk.Frame(parent, width=30, bd=0, bg="white", highlightbackground="white", pady=10)
+        for i in range(4):
+            entryFrame.columnconfigure(i, weight=1)
 
-        def clearBox(self):
-            name.delete(0, 'end')
+        self.createButton(entryFrame).pack(expand=0, side=tk.RIGHT)
+
+        def clearBox(event):
+            if username.get() == "podaj nazwe tabeli: ":
+                name.delete(0, 'end')
+
         username = tk.StringVar()
         username.set("podaj nazwe tabeli: ")
-        name = tk.Entry(dataFrame, bd=2, textvariable=username, width=temp_width)
+        name = tk.Entry(entryFrame, bd=3, textvariable=username, width=temp_width)
         name.bind('<Button-1>', clearBox)
-        name.grid(row=0, column=1)
+        name.bind("<Key>", self.enterCallback)
+        name.pack(fill=tk.BOTH, expand=1, side=tk.LEFT)
+
         self.names[labelName] = name
-        return dataFrame
+        return entryFrame
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent, width=500, height=200)
         self.controller = controller
         self.parent = parent
         # self.setColors("#110E0A")
-        self.dataSet = controller.database.get_data_from_table("CustomFace")
+        self.dataSet = controller.database.get_data_from_table("Appearance")
         self.setTheme("#FFFFFF")
 
         self.configure(bg=self.backgroundColor)
