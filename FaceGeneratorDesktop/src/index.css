@@ -1,0 +1,226 @@
+*, *:after, *:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+}
+
+.app {
+    position: relative;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 32px;
+}
+
+.headerAppButtons {
+    float: right;
+    width: 120px;
+    height: 100%;
+    background-color: #383838;
+}
+
+.headerDragger {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(100% - 120px);
+    height: 100%;
+    -webkit-app-region: drag;
+}
+
+.headerAppButton {
+    width: 50%;
+    height: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    float: left;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.headerAppButton:hover {
+    background-color: #888888;
+}
+
+.headerAppButton i {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.headerMinimizeButton {
+    font-size: 16px;
+    margin-top: -2px;
+}
+
+.cafeMinimizeIcon {
+    margin-top: 5px;
+    width: 25%;
+    height: 1px;
+    background-color: #ffffff;
+}
+
+.cafeCloseIcon {
+    position: relative;
+    width: 25%;
+    height: 1px;
+    background-color: #ffffff;
+    transform: rotateZ(45deg);
+}
+
+.cafeCloseIcon:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff;
+    transform: rotateZ(-90deg);
+    top: 0;
+    left: 0;
+}
+
+.sideMenu { 
+    float: left;
+    width: 240px;
+    background-color: #383838;
+    height: 100vh;
+}
+
+.sideMenuContent {
+    padding-top: 80px;
+}
+
+.sideMenuItem {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 24px;
+    font-size: 18px;
+    color: #bbbbbb;
+    cursor: pointer;
+}
+
+.sideMenuItem:after {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: inherit;
+}
+
+.sideMenuItem:hover {
+    color: #ffffff;
+}
+
+.sideMenuItem:hover:after {
+    background-color: #ffffff;
+}
+
+.sideMenuItemIcon {
+    padding-left: 24px;
+}
+
+.sideMenuItemName {
+    padding-left: 12px;
+}
+
+.workArea {
+    width: calc(100% - 240px);
+    float: left;
+    padding-left: 56px;
+    padding-top: 56px;
+}
+
+.workAreaText {
+    font-size: 16px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.photoWorkAreaContainer {
+    padding-top: 8px;
+    display: flex;
+    justify-content: start;
+}
+
+.photoWorkArea  {
+    width: 480px;
+}
+
+.photoWorkAreaHeader {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 32px;
+    background-color: #383838;
+}
+
+.photoWorkAreaHeaderButton {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    float: left;
+    background-color: inherit;
+    font-size: 16px;
+    padding: 0px 8px;
+    color:#bbbbbb;
+    cursor: pointer;
+}
+
+.photoWorkAreaHeaderButton:hover {
+    color: #ffffff;
+}
+
+.photoWorkAreaButtons {
+    padding-left: 32px;
+}
+
+.photoWorkAreaButtonRow {
+    display: block;
+    margin-bottom: 16px;
+}
+
+.photoWorkAreaButton {
+    height: 32px;
+    padding: 8px;
+    background-color: #383838;
+    border: none;
+    color: #ffffff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.mainCanvas {
+    width: 480px;
+    height: 480px;
+    background-image: url("assets/noimage.png");
+    background-size: cover;
+}
+
+.canvasContainer {
+    position: relative;
+    overflow: hidden;
+}
+
+.canvasContainer [id^="canvas"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
