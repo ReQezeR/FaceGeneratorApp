@@ -1,6 +1,6 @@
 # FaceGeneratorApp
 ## Overview
-FaceGeneratorApp is an database project written in python and sql
+FaceGeneratorApp is an database project written in python, JavaScript, and sql
 ## Description
 Korzystając z wygenerowanych przez AI twarzy: https://generated.photos/ tworzymy aplikacje, która z dostępnych elementów generuje zmodyfikowane twarze.    
 Schemat bazy danych wykorzystany przy tworzeniu aplikacji:
@@ -28,6 +28,8 @@ W celu uproszczenia tworzenia wpisów w bazie danych ograniczono się do skorzys
 ## Tools
 * Python 3.6
 * Sqlite / Django
+* JavaScript
+* Electron 
 
 ## How to run
 * Windows
@@ -37,13 +39,31 @@ W celu uproszczenia tworzenia wpisów w bazie danych ograniczono się do skorzys
 * ~~Stworzenie wstępnego algorytmu generowania twarzy~~
 * ~~Implementacja testowego generatora~~
 
+## How to run and what is Face Generator Desktop App
+Face Generator Desktop App (FGDA) is written in JavaScript using Electron framework. You can read more about it [here](https://www.electronjs.org/docs)
+
+FGDA is a simple desktop app that's used to select proper masks/vectors of given face.
+Using FGDA we can select:
+* Face mask
+* Left ear mask
+* Right ear mask
+* Left eye mask
+* Right eye mask
+* Left eyebrow mask
+* Right eyebrow mask
+* Hair mask
+* Mouth mask
+* Nose mask
+
+
+
 ## Attributions 
 TODO
 ## Credits
 * **Michał Popiel** - *GUI* - [ReQezeR](https://github.com/ReQezeR)
 * **Norbert Młynarski** - *Generator-współbieżność* [bibiosm98](https://github.com/bibiosm98)
 * **Nikodem Janaszak** - *Database* [NikodemJanaszak](https://github.com/NikodemJanaszak)
-* **Jakub Kusiowski** - *Generator* [JKusio](https://github.com/JKusio)
+* **Jakub Kusiowski** - *Generator-Aplikacja do tworzenia danych* [JKusio](https://github.com/JKusio)
 
 
 ## License
