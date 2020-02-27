@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello World!</title>
+        <link rel="stylesheet" href="index.css">
+        <script src="https://kit.fontawesome.com/8b72e77a93.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="app">
+        <header class="header">
+            <div class="headerDragger">
+            </div>
+            <div class="headerAppButtons">
+                <button id="appMinimizeButton" class="headerAppButton">
+                    <i class="cafeMinimizeIcon"></i>
+                </button>
+                <button id="appCloseButton" class="headerAppButton">
+                    <i class="cafeCloseIcon"></i>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="sideMenu">
+                <div class="sideMenuContent">
+                    <div id="loadImageButton" class="sideMenuItem">
+                        <span class="sideMenuItemIcon">
+                            <i class="fas fa-portrait"></i>
+                        </span>
+                        <span class="sideMenuItemName"> Load image </span>
+                    </div>
+                    <!--
+                    <div id="uploadItemButton" class="sideMenuItem">
+                        <span class="sideMenuItemIcon">
+                            <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="sideMenuItemName"> Upload content </span>
+                    </div>
+                    -->
+                    <div id="saveLocallyButton" class="sideMenuItem">
+                        <span class="sideMenuItemIcon">
+                            <i class="fas fa-save"></i>
+                        </span>
+                        <span class="sideMenuItemName"> Save locally </span>
+                    </div>
+                </div>
+            </div>
+            <div class="workArea">
+                <span class="workAreaText" id="photoTitle">
+                    No photo loaded
+                </span>
+                <div class="photoWorkAreaContainer">
+                    <div class="photoWorkArea">
+                        <div class="photoWorkAreaHeader">
+                            <button class="photoWorkAreaHeaderButton" id="undoButton">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                            <button class="photoWorkAreaHeaderButton" id="redoButton">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                            <!--
+                            <button class="photoWorkAreaHeaderButton">
+                                <i class="fas fa-project-diagram"></i>
+                            </button>
+                            -->
+                        </div>
+                        <div class="mainCanvas" id="mainCanvas">
+                        </div>
+                    </div>
+                    <div class="photoWorkAreaButtons">
+                        <div class="photoWorkAreaButtonRow">
+                            <button id="previousVectorButton" class="photoWorkAreaButton">
+                                <i class="fas fa-arrow-left"></i>
+                                Prev. vector
+                            </button>
+                            <button id="nextVectorButton" class="photoWorkAreaButton">
+                                Next. vector
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <!--
+                        <div id="nextVectorButton" class="photoWorkAreaButtonRow">
+                            <button class="photoWorkAreaButton">
+                                <i class="fas fa-cogs"></i>
+                                Optimize
+                            </button>
+                        </div>
+                        -->
+                    </div>
+                </div>
+                <span class="workAreaText workAreaMaskName" id="maskName">
+                    
+                </span>
+            </div>
+        </main>
+        <footer>
+            <script src="controllers/canvasController.js"></script>
+            <script src="controllers/mainController.js"></script>
+        </footer>
+    </body>
+</html>
