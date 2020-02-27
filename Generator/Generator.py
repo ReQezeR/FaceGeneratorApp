@@ -9,26 +9,51 @@ class Generator:
         self.face_image = self.convert_to_rgba(self.face_image)
 
         self.features = {}
-        self.model = {'face': {'size': {'x': 250, 'y': 350}, 'x_shift': 0, 'y_shift': 0},
-                      'l_ear': {'size': {'x': 35, 'y': 75}, 'x_shift': -110, 'y_shift': 0},
-                      'r_ear': {'size': {'x': 35, 'y': 75}, 'x_shift': 110, 'y_shift': 0},
-                      'l_eye': {'size': {'x': 50, 'y': 25}, 'x_shift': -50, 'y_shift': -25},
-                      'r_eye': {'size': {'x': 50, 'y': 25}, 'x_shift': 50, 'y_shift': -25},
-                      'l_eyebrow': {'size': {'x': 55, 'y': 20}, 'x_shift': -50, 'y_shift': -35},
-                      'r_eyebrow': {'size': {'x': 55, 'y': 20}, 'x_shift': 50, 'y_shift': -35},
-                      'nose': {'size': {'x': 50, 'y': 60}, 'x_shift': 0, 'y_shift': 20},
+        self.model = {'face': {'size': {'x': 280, 'y': 350}, 'x_shift': 0, 'y_shift': 0},
+                      'l_ear': {'size': {'x': 45, 'y': 75}, 'x_shift': -120, 'y_shift': 0},
+                      'r_ear': {'size': {'x': 45, 'y': 75}, 'x_shift': 120, 'y_shift': 0},
+                      'l_eye': {'size': {'x': 50, 'y': 25}, 'x_shift': -50, 'y_shift': -45},
+                      'r_eye': {'size': {'x': 50, 'y': 25}, 'x_shift': 50, 'y_shift': -45},
+                      'l_eyebrow': {'size': {'x': 55, 'y': 20}, 'x_shift': -50, 'y_shift': -65},
+                      'r_eyebrow': {'size': {'x': 55, 'y': 20}, 'x_shift': 50, 'y_shift': -65},
+                      'nose': {'size': {'x': 60, 'y': 70}, 'x_shift': 0, 'y_shift': 0},
                       'mouth': {'size': {'x': 90, 'y': 40}, 'x_shift': 0, 'y_shift': 85},
-                      'hair': {'size': {'x': 250, 'y': 150}, 'x_shift': 0, 'y_shift': -100},
+                      'hair': {'size': {'x': 250, 'y': 270}, 'x_shift': 10, 'y_shift': -60}, #y 130 # x230
                       'suit': {'size': {'x': 450, 'y': 210}, 'x_shift': -30, 'y_shift': 180}}
 
     def get_files(self, feature_list):
         for feature in feature_list:
             try:
                 feature_img = cv2.imread(feature_list[feature], cv2.IMREAD_UNCHANGED)
-                feature_img = cv2.resize(feature_img, (self.model[feature]['size']['x'], self.model[feature]['size']['y']))
-                self.features[feature] = feature_img
+                if feature == 'hair':
+                    print("hair")
+                    yh, xh, lh = feature_img.shape
+                    target_x = xh
+                    target_y = yh
+                    yf, xf, lf = self.features['face'].shape
+
+                    if self.model['face']['size']['x'] < xh:
+                        target_x = self.model['face']['size']['x']+60 # na długie
+                        print(self.model['face']['size']['x']," ? ",xh)
+                        print("+70")
+                    else:
+                        target_x = self.model['face']['size']['x'] -30  # na krótkie
+                        print(self.model['face']['size']['x'], " ? ", xh)
+                    if self.model['face']['size']['y'] < yh:
+                        target_y = self.model['face']['size']['y']
+                        self.model['hair']['y_shift'] = -50
+                    else:
+                        target_y = self.model['face']['size']['y']-20
+                        self.model['hair']['y_shift'] = -50
+                    print(xf, yf)
+                    feature_img = cv2.resize(feature_img, (target_x, target_y))
+                    self.features[feature] = feature_img
+                else:
+                    feature_img = cv2.resize(feature_img,
+                                             (self.model[feature]['size']['x'], self.model[feature]['size']['y']))
+                    self.features[feature] = feature_img
             except Exception:
-                pass
+                print("e")
 
     def insert_feature(self, background, feature_img, x_shift=0, y_shift=0):
         def start_point(width, height, center_x, center_y, x_shift=0, y_shift=0):
@@ -43,7 +68,30 @@ class Generator:
         p0 = start_point(f_width, f_height, int(b_width / 2), int(b_height / 2), x_shift=x_shift, y_shift=y_shift)
         x = p0[0]
         y = p0[1]
-        # draw_rects(background, [[p0[0], p0[1], p0[0] + f_width, p0[1] + f_height]], 255)
+        # draw_rects(background, [[p0[0], p0[1], p0[0] + f_width, p0[1] + f_height]], 127)
+        for i in range(f_height):
+            for j in range(f_width):
+                if feature_img[i, j, 3] == 255:  # sprawdzanie maski
+                    try:
+                        background[i + y, j + x] = feature_img[i, j]
+                    except Exception:
+                        break
+        return background
+
+    def insert_hair(self, background, feature_img, x_shift=0, y_shift=0):
+        def start_point(width, height, center_x, center_y, x_shift=0, y_shift=0):
+            return center_x - int(width / 2) + x_shift, center_y - int(height / 2) + y_shift
+
+        def draw_rects(image, rects, color):
+            for x1, y1, x2, y2 in rects:
+                cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
+
+        b_height, b_width, b_chan = background.shape
+        f_height, f_width, f_chan = feature_img.shape
+        p0 = start_point(f_width, f_height, int(b_width / 2), int(b_height / 2), x_shift=x_shift, y_shift=y_shift)
+        x = p0[0]
+        y = p0[1]
+        draw_rects(background, [[p0[0], p0[1], p0[0] + f_width, p0[1] + f_height]], 127)
         for i in range(f_height):
             for j in range(f_width):
                 if feature_img[i, j, 3] == 255:  # sprawdzanie maski
@@ -68,7 +116,6 @@ class Generator:
         background = self.face_image
         background = self.insert_feature(background, self.features['face'])  # TODO: twarz bez cech (gładka)
         # background = self.insert_feature(background, self.features['suit'], x_shift=self.model['suit']['x_shift'], y_shift=self.model['suit']['y_shift'])
-        background = self.insert_feature(background, self.features['hair'], y_shift=self.model['hair']['y_shift'])
         background = self.insert_feature(background, self.features['mouth'], y_shift=self.model['mouth']['y_shift'])
         background = self.insert_feature(background, self.features['nose'], y_shift=self.model['nose']['y_shift'])
         background = self.insert_feature(background, self.features['l_eye'], x_shift=-eye_distance, y_shift=self.model['l_eye']['y_shift'])
@@ -77,6 +124,7 @@ class Generator:
         background = self.insert_feature(background, self.features['r_eyebrow'], x_shift=eye_distance, y_shift=self.model['r_eyebrow']['y_shift'])
         background = self.insert_feature(background, self.features['l_ear'], x_shift=self.model['l_ear']['x_shift'], y_shift=self.model['l_ear']['y_shift'])
         background = self.insert_feature(background, self.features['r_ear'], x_shift=self.model['r_ear']['x_shift'], y_shift=self.model['r_ear']['y_shift'])
+        background = self.insert_feature(background, self.features['hair'], y_shift=self.model['hair']['y_shift'])
         self.face_image = background
 
 
