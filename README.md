@@ -19,7 +19,7 @@ Database schema used to create the application:
 * `addHair` - adds hair to the database
 * `addFace` - adds a face template (contour without sub-features) to the database
 * `addAttributeAssignment` - creates an assignment of selected face elements and adds to the AttributeAssignment table
-* addAppearance - adds an appearance to the database
+* `addAppearance` - adds an appearance to the database
 
 To simplify the creation of entries in the database, it is limited to using the following sample data:
 * eye colors [blue, green, black, brown]
