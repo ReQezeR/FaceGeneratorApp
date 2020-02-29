@@ -1,6 +1,3 @@
-AttributeAssignmentID
-
-
 Appearance(ID,AssignmentID,SkinType, Date, Path)
 AttributeAssignment(ID, FaceID, EyesID, EyeBrowsID, NoseID, LipsID, EarsID, HairID)
 

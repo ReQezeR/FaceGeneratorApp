@@ -3,12 +3,8 @@ import threading
 import tkinter as tk
 from datetime import datetime
 from tkinter import font as tkfont
-
-
 from PIL import Image, ImageTk
-import random
 import cv2
-
 from DatabaseBackend.Backend import DbProvider
 from DatabaseBackend.ThreadManagement import ThreadWithTrace
 from Generator.Generator import Generator
@@ -82,13 +78,12 @@ class GeneratorPage(tk.Frame):
             try:
                 os.mkdir(self.file_path("Files\\Faces\\"))
             except:
-                pass
+                print("Nie mozna utworzyc folderu")
         filename = "Face_" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S')+".png"
         path = "Files\\Faces\\"+filename
         DbProvider().appearance.insert_into_table(temp[0], "white", path)
         g.write_face(self.file_path(path))
 
-        # self.loadImage(self.file_path(path))
         lock.release()
         self.changeGenerated()
 

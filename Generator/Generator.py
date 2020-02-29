@@ -18,8 +18,7 @@ class Generator:
                       'r_eyebrow': {'size': {'x': 55, 'y': 20}, 'x_shift': 50, 'y_shift': -65},
                       'nose': {'size': {'x': 60, 'y': 70}, 'x_shift': 0, 'y_shift': 0},
                       'mouth': {'size': {'x': 90, 'y': 40}, 'x_shift': 0, 'y_shift': 85},
-                      'hair': {'size': {'x': 250, 'y': 270}, 'x_shift': 10, 'y_shift': -60}, #y 130 # x230
-                      'suit': {'size': {'x': 450, 'y': 210}, 'x_shift': -30, 'y_shift': 180}}
+                      'hair': {'size': {'x': 250, 'y': 270}, 'x_shift': 10, 'y_shift': -60}}  #y 130 # x230
 
     def get_files(self, feature_list):
         for feature in feature_list:
@@ -114,8 +113,7 @@ class Generator:
 
     def create_face(self, eye_distance=50):
         background = self.face_image
-        background = self.insert_feature(background, self.features['face'])  # TODO: twarz bez cech (gładka)
-        # background = self.insert_feature(background, self.features['suit'], x_shift=self.model['suit']['x_shift'], y_shift=self.model['suit']['y_shift'])
+        background = self.insert_feature(background, self.features['face'])
         background = self.insert_feature(background, self.features['mouth'], y_shift=self.model['mouth']['y_shift'])
         background = self.insert_feature(background, self.features['nose'], y_shift=self.model['nose']['y_shift'])
         background = self.insert_feature(background, self.features['l_eye'], x_shift=-eye_distance, y_shift=self.model['l_eye']['y_shift'])
@@ -132,7 +130,7 @@ if __name__ == "__main__":
     feature_list = {'face': "Files/Features/InputFace-00/face.png", 'l_ear': "Files/Features/InputFace-00/l_ear.png", 'r_ear': "Files/Features/InputFace-00/r_ear.png",
                     'l_eye': "Files/Features/InputFace-00/l_eye.png", 'r_eye': "Files/Features/InputFace-00/r_eye.png", 'l_eyebrow': "Files/Features/InputFace-00/l_eyebrow.png",
                     'r_eyebrow': "Files/Features/InputFace-00/r_eyebrow.png", 'nose': "Files/Features/InputFace-00/nose.png", 'mouth': "Files/Features/InputFace-00/mouth.png",
-                    'hair': "Files/Features/InputFace-00/hair.png", 'suit': "Files/Features/InputFace-00/suit.png"}
+                    'hair': "Files/Features/InputFace-00/hair.png"}
     g = Generator()
     g.get_files(feature_list)
     g.create_face()

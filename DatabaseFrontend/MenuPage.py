@@ -92,7 +92,6 @@ class Menu(tk.Frame):
         tk.Frame.__init__(self, parent, width=500, height=200)
         self.controller = controller
         self.parent = parent
-        # self.setColors("#110E0A")
         self.setTheme("#FFFFFF")
 
         self.configure(bg=self.backgroundColor)

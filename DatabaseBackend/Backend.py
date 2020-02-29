@@ -6,14 +6,13 @@ import random
 
 
 class DbProvider:
-
     def random_features(self, skintype):
         feature_list = {}
 
         def face():
             face = self.custom_select("SELECT * FROM Face e WHERE e.SkinType=LOWER('{}')".format(skintype))
-            number = random.randint(0, face.__len__() - 1)
-            path = face['{}'.format(number)]['Path']
+            number = random.randint(1, face.__len__())
+            path = face['{}'.format(number-1)]['Path']
             feature_list['face'] = path
             return number
 
@@ -21,8 +20,8 @@ class DbProvider:
 
         def mouth():
             mouth = self.custom_select("SELECT * FROM Mouth e WHERE e.SkinType=LOWER('{}')".format(skintype))
-            number = random.randint(0, mouth.__len__() - 1)
-            path = mouth['{}'.format(number)]['Path']
+            number = random.randint(1, mouth.__len__())
+            path = mouth['{}'.format(number-1)]['Path']
             feature_list['mouth'] = path
             return number
 
@@ -30,7 +29,7 @@ class DbProvider:
 
         def nose():
             nose = self.custom_select("SELECT * FROM Nose e WHERE e.SkinType=LOWER('{}')".format(skintype))
-            number = random.randint(0, nose.__len__() - 1)
+            number = random.randint(1, nose.__len__())
             nose_path = nose['{}'.format(number)]['Path']
             feature_list['nose'] = nose_path
             return number
@@ -40,9 +39,9 @@ class DbProvider:
         def eyebrows():
             eyebrows = self.custom_select(
                 "SELECT L_ID, R_ID FROM EyeBrows e WHERE e.SkinType=LOWER('{}')".format(skintype))
-            number = random.randint(0, eyebrows.__len__() - 1)
-            l_id = eyebrows['{}'.format(number)]['L_ID']
-            r_id = eyebrows['{}'.format(number)]['R_ID']
+            number = random.randint(1, eyebrows.__len__())
+            l_id = eyebrows['{}'.format(number-1)]['L_ID']
+            r_id = eyebrows['{}'.format(number-1)]['R_ID']
             l_eyebrow = self.custom_select("SELECT Path FROM EyeBrow e WHERE e.ID = {}".format(l_id))['0']['Path']
             r_eyebrow = self.custom_select("SELECT Path FROM EyeBrow e WHERE e.ID = {}".format(r_id))['0']['Path']
             feature_list['l_eyebrow'] = l_eyebrow
@@ -53,9 +52,9 @@ class DbProvider:
 
         def eyes():
             eyes = self.custom_select("SELECT L_ID, R_ID FROM Eyes e WHERE e.SkinType=LOWER('{}')".format(skintype))
-            number = random.randint(0, eyes.__len__() - 1)
-            l_id = eyes['{}'.format(number)]['L_ID']
-            r_id = eyes['{}'.format(number)]['R_ID']
+            number = random.randint(1, eyes.__len__())
+            l_id = eyes['{}'.format(number-1)]['L_ID']
+            r_id = eyes['{}'.format(number-1)]['R_ID']
             l_eye = self.custom_select("SELECT Path FROM Eye e WHERE e.ID = {}".format(l_id))['0']['Path']
             r_eye = self.custom_select("SELECT Path FROM Eye e WHERE e.ID = {}".format(r_id))['0']['Path']
             feature_list['l_eye'] = l_eye
@@ -66,9 +65,9 @@ class DbProvider:
 
         def ears():
             ears = self.custom_select("SELECT L_ID, R_ID FROM Ears e WHERE e.SkinType=LOWER('{}')".format(skintype))
-            number = random.randint(0, ears.__len__() - 1)
-            l_id = ears['{}'.format(number)]['L_ID']
-            r_id = ears['{}'.format(number)]['R_ID']
+            number = random.randint(1, ears.__len__())
+            l_id = ears['{}'.format(number-1)]['L_ID']
+            r_id = ears['{}'.format(number-1)]['R_ID']
             l_ear = self.custom_select("SELECT Path FROM Ear e WHERE e.ID = {}".format(l_id))['0']['Path']
             r_ear = self.custom_select("SELECT Path FROM Ear e WHERE e.ID = {}".format(r_id))['0']['Path']
             feature_list['l_ear'] = l_ear
@@ -79,8 +78,8 @@ class DbProvider:
 
         def hair():
             hair = self.custom_select("SELECT * FROM Hair e WHERE e.SkinType=LOWER('{}')".format(skintype))
-            number = random.randint(0, hair.__len__() - 1)
-            path = hair['{}'.format(number)]['Path']
+            number = random.randint(1, hair.__len__() )
+            path = hair['{}'.format(number-1)]['Path']
             feature_list['hair'] = path
             return number
 
@@ -358,8 +357,8 @@ class DbProvider:
             SkinType VARCHAR(100),
             L_ID INT,
             R_ID INT,
-            FOREIGN KEY(L_ID) references Eye(ID),
-            FOREIGN KEY(R_ID) references Eye(ID)
+            FOREIGN KEY(L_ID) references Ear(ID),
+            FOREIGN KEY(R_ID) references Ear(ID)
             )'''
             self.cursor.execute(sql)
             self.connection.commit()
@@ -453,6 +452,7 @@ class DbProvider:
             self.connection.commit()
 
     class AttributeAssignment:  # AttributeAssignment
+        # TODO: add foregin key for EyeBrows!
         def insert_into_table(self, faceID, eyesID, eyebrowsID, noseID, mouthID, earsID, hairID):
             sql = '''INSERT INTO AttributeAssignment (FaceID, EyesID, NoseID, MouthID, EarsID, HairID)
             VALUES ({},{},{},{},{},{});'''.format(faceID, eyesID, noseID, mouthID, earsID, hairID)
@@ -583,4 +583,4 @@ if __name__ == "__main__":
     # db.addMouth("medium", "white", "InputFace-10")
     # db.addHair("short", "dark", "white", "InputFace-10")
     # db.addFace("white", "medium", "InputFace-10")
-    db.random_features("white")
+    # db.random_features("white")

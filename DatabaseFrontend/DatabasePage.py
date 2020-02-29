@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import font as tkfont
-from tkinter import messagebox
 
 from PIL import Image, ImageTk
 from pandastable import Table, pd
@@ -23,9 +22,7 @@ class DatabasePage(tk.Frame):
     def createMenu(self, parent):
         main_frame = tk.Frame(parent, borderwidth=20, background="#FFFFFF")
         tk.Label(main_frame, text='Database', image=self.databaseLabel, font=self.button_font, bg="#FFFFFF").pack(fill=tk.BOTH, expand=1)
-        # self.customButton(main_frame, "Cecha 1", self.customButtonImage, "DatabasePage", x=self.x / 4, xmargin=10, bgcolor="#666666", fontcolor="#8BB0F9").pack(expand=False)
-        # self.customButton(main_frame, "Cecha 2", self.customButtonImage, "DatabasePage", x=self.x / 2, xmargin=10, bgcolor="#666666", fontcolor="#8BB0F9").pack(expand=False)
-        # self.customButton(main_frame, "Cecha 3", self.customButtonImage, "DatabasePage", x=self.x / 2, xmargin=10, bgcolor="#666666", fontcolor="#8BB0F9").pack(expand=False)
+        self.createSpace(main_frame, 400).pack(fill=tk.BOTH, expand=1)
         self.customButton(main_frame, "Return", self.returnButtonImage, "Menu", x=self.x / 2, xmargin=10, bgcolor="#666666", fontcolor="#8BB0F9").pack(expand=0)
 
         self.createSpace(main_frame, 30).pack(fill=tk.BOTH, expand=1)
@@ -56,34 +53,6 @@ class DatabasePage(tk.Frame):
                            bg=bgcolor,
                            fg=fontcolor,
                            command=lambda: self.controller.show_frame(frame))
-        button.pack(expand=1)
-
-        temp_label_2 = tk.Label(main_frame, width=int(x / 7), height=int(ymargin / 2), bg=self.white)  # add space
-        temp_label_2.pack()
-        return main_frame
-
-    def helpButton(self, parent, text, img, x=10, y=1, xmargin=0, ymargin=0, bgcolor="#FFA900", fontcolor="#FFFFFF"):
-        def clicked():
-            messagebox.showinfo('HELP', 'Aplikacja do obsługi bazy danych.')
-        main_frame = tk.LabelFrame(parent, bd=0, bg=self.secondBackgroundColor, width=x, height=y)
-        main_frame.pack(fill=tk.BOTH, expand=0)
-
-        tk.Grid.rowconfigure(main_frame, 0, weight=1)
-        tk.Grid.columnconfigure(main_frame, 0, weight=1)
-
-        temp_label_1 = tk.Label(main_frame, width=int(x / 7), height=int(ymargin / 2), bg=self.white)  # add space
-
-        temp_label_1.pack()
-        button = tk.Button(main_frame,
-                           text=text,
-                           font=self.button_font,
-                           padx=10,
-                           pady=10,
-                           bd=0,
-                           image=img,
-                           bg=bgcolor,
-                           fg=fontcolor,
-                           command=lambda: clicked())
         button.pack(expand=1)
 
         temp_label_2 = tk.Label(main_frame, width=int(x / 7), height=int(ymargin / 2), bg=self.white)  # add space

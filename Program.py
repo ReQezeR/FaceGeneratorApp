@@ -37,8 +37,11 @@ class App(tk.Tk):
         self.show_frame("Menu")
 
     def exit_callback(self):
-        # self.t1.kill()
-        # self.t1.join()
+        try:
+            self.t1.kill()
+            self.t1.join()
+        except:
+            print("Nie mozna zakonczyc watku")
         self.destroy()
 
     def make_window_bigger(self):
