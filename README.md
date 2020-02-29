@@ -6,7 +6,8 @@ Korzystając z wygenerowanych przez AI twarzy: https://generated.photos/ tworzym
 Schemat bazy danych wykorzystany przy tworzeniu aplikacji:
 ![DatabaseDiagram](DatabaseBackend/DB_Diagram.png)
 
-## Database Methods
+## DbProvider
+* random_features - losuje cechy z bazy danych
 * addEyes – dodaje parę oczu do bazy danych
 * addEars – dodaje parę uszu do bazy danych
 * addEyeBrows – dodaje parę brwi do bazy danych
@@ -25,19 +26,80 @@ W celu uproszczenia tworzenia wpisów w bazie danych ograniczono się do skorzys
 * hair type[long, short]
 * sizes [small, medium, large]
 
+## Generator  - klasa obslugujaca generowanie obrazu
+* get_files - wczytuje i skaluje wybrane obrazy
+* insert_feature - umieszcza ceche na obrazie
+* convert_to_rgba - dodaje przezroczystosc
+* write_face - zapisuje wygenerowany obraz
+* create_face - tworzy obraz z cech
+
+## FilesCreator - klasa do tworzenia obrazów cech na podstawie danych z FGDA
+* cut_feature - wycina ceche z podanego obrazu
+* cut_face -  wycina twarz (kontur) bez cech podrzednych 
+* convert_to_rgba - dodaje przezroczystosc
+* create_files - zapisuje wyciete cechy jako pliki .png w wybranym folderze
+
+## App - główna klasa interfejsu graficznego
+* __init__ - konstruktor inicjalizujacy podstrony aplikacji
+* exit_callback - destruktor
+* make_window_bigger - zwieksza rozmiar wyswietlanego okna
+* make_window_smaller - zmniejsza rozmiar wyswietlanego okna
+* show_frame - zmienia wyswietlna strone
+* resource_path - zwraca sciezke do pliku
+
+## Menu - klasa definiujaca wyglad strony Menu
+* __init__ - konstruktor inicjalizujacy elementy strony
+* setTheme - ustawia kolorystyke motywu strony oraz niezbedne obrazy
+* createMenu - ustawia rozmieszczenie menu
+* createSpace - tworzy odstep miedzy elementami interfejsu
+* customButton - tworzy zpersonalizowany przycisk 
+* helpButton - tworzy przycisk wyswietlajacy info o aplikacji 
+
+
+## GeneratorPage -  klasa odpowiadajaca za interfejs generatora
+* __init__ - konstruktor inicjalizujacy elementy strony
+* runGenerator - uruchamia nowy watek obsługujący generator
+* _runGenerator - przeprowadza proces generowania
+* file_path - zwraca sciezke do pliku
+* loadImage - wczytuje podany obraz
+* resize - zmienia rozmiar wyswietlanego obrazu
+* getXY - ustawia aktualny rozmiar okna
+* createHeader - tworzy nagłówek strony
+* changeImage - zmienia wyswietlany obraz
+* randomFeatures - wywołuje metode losujaca cechy
+* changeData - zmienia dane wyswietlane obok obrazu
+* changeGenerated - ustawia dane ostatnio wygenerowanego obrazu
+* createDataTable - tworzy tabele na informacje o wygenerowanym obrazie
+* createImageFrame - tworzy ramke w której wyswietlany jest wygenerowany obraz
+* createBody - tworzy ciało strony (miejsce na obraz i dane)
+* setTheme - ustawia kolorystyke motywu strony oraz niezbedne obrazy
+
+## DatabasePage - klasa odpowiadajaca za prezentowanie danych z bazy
+* __init__ - konstruktor inicjalizujacy elementy strony
+* setTheme - ustawia kolorystyke motywu strony oraz niezbedne obrazy
+* createMenu - tworzy menu obslugi strony
+* createSpace - tworzy odstep miedzy elementami interfejsu
+* customButton - tworzy zpersonalizowany przycisk
+* customPandasTable - tworzy zpersonalizowaną tebelę do prezentowania danych
+* enterCallback - obsługa zdarzenia = wcisniecie przycisku 'Enter'
+* callback - aktualizacja danych w tabeli
+* createButton - tworzy przycisk odpowaiadajacy za aktualizacje prezentowanych danych
+* createEntry - tworzy pole wejsciowe do ustalania prezentowanej tabeli
+
+
 ## Tools
 * Python 3.6
-* Sqlite / Django
+* Sqlite
+* Tkinter
+* PandasTable 0.22
 * JavaScript
 * Electron 
 
 ## How to run
 * Windows
 ## Future improvements
-* ~~Stworzenie kompletnego schematu bazy danych~~
-* ~~Implementacja w SQL(wyzwalacze, procedury składowane)~~
-* ~~Stworzenie wstępnego algorytmu generowania twarzy~~
-* ~~Implementacja testowego generatora~~
+* Refaktoryzacja kodu
+* Poprawienie działania generatora (optymalizacja rozmieszczania elementów)
 
 ## Face Generator Desktop App
 ### What is Face Generator Desktop App (FGDA)
@@ -87,10 +149,8 @@ Then if you want to run app use -
 `npm start`.
 It will start the app in debug mode (with console open).
 
-## Attributions 
-TODO
 ## Credits
-* **Michał Popiel** - *GUI* - [ReQezeR](https://github.com/ReQezeR)
+* **Michał Popiel** - *GUI, Generator* - [ReQezeR](https://github.com/ReQezeR)
 * **Norbert Młynarski** - *Generator-współbieżność* [bibiosm98](https://github.com/bibiosm98)
 * **Nikodem Janaszak** - *Database* [NikodemJanaszak](https://github.com/NikodemJanaszak)
 * **Jakub Kusiowski** - *Generator-Aplikacja do tworzenia danych* [JKusio](https://github.com/JKusio)
@@ -101,4 +161,3 @@ TODO
 
 The project was conducted during the Database Lab course, Poznan University of Technology.
 Supervisor: Krzysztof Zwierzyński
-
