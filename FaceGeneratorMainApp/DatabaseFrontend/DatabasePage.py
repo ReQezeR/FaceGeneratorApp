@@ -81,8 +81,6 @@ class DatabasePage(tk.Frame):
         if 'ID' in df.columns:
             df['ID'] = df['ID'].astype(int)
 
-        print(df['ID'].dtype)
-
         self.table = Table(field, dataframe=df, showtoolbar=False, showstatusbar=False)
         self.table.show()
         return field
@@ -94,7 +92,6 @@ class DatabasePage(tk.Frame):
     def callback(self):
         for typ, n in self.names.items():
             query = str(n.get())
-            print(query)
             if query.__len__() > 3:
                 self.dataSet = self.controller.database.get_data_from_table(str(n.get())) # wczytanie nowych danych
                 self.custom_table.destroy()  # usunięcie starej tabeli

@@ -5,14 +5,14 @@ from datetime import datetime
 from tkinter import font as tkfont
 from PIL import Image, ImageTk
 import cv2
-from DatabaseBackend.Backend import DbProvider
-from DatabaseBackend.ThreadManagement import ThreadWithTrace
-from Generator.Generator import Generator
+from FaceGeneratorMainApp.DatabaseBackend.Backend import DbProvider
+from FaceGeneratorMainApp.DatabaseBackend.ThreadManagement import ThreadWithTrace
+from FaceGeneratorMainApp.Generator.Generator import Generator
 
 
 class GeneratorPage(tk.Frame):
     def file_path(self, relative):
-        p = os.path.join(os.environ.get("_MEIPASS2", os.path.abspath(".")), relative)
+        p = os.path.join(os.environ.get("_MEIPASS2", os.path.abspath("")), relative)
         return p
 
     def loadImage(self, path=None):
@@ -69,7 +69,6 @@ class GeneratorPage(tk.Frame):
     def _runGenerator(self):
         g = Generator()
         temp = self.randomFeatures()
-        print(temp)
         g.get_files(temp[1])
         g.create_face()
         lock = threading.Lock()
@@ -89,7 +88,6 @@ class GeneratorPage(tk.Frame):
 
     def changeData(self):
         self.dataSet = DbProvider().custom_select("SELECT * FROM Appearance ORDER BY ID DESC LIMIT 1;")
-        print(self.dataSet['0'])
         i = 0
         number = 0
 
@@ -112,25 +110,21 @@ class GeneratorPage(tk.Frame):
 
     def changeGenerated(self):
         self.dataSet = DbProvider().custom_select("SELECT * FROM Appearance ORDER BY ID DESC LIMIT 1;")
-        print(self.dataSet['0'])
         i = 0
         number = 0
 
         labels = list(self.dataSet[str(number)].keys())
-        print(labels)
 
         for label in labels:
             self.l[i].configure(text=str(label))
             i += 1
         i = 0
-        print(self.dataSet[str(number)])
         for item in self.dataSet[str(number)]:
             if self.table_version == 1:
                 self.d[i].configure(text=self.dataSet[str(number)][item])
             elif self.table_version == 2:
                 input = tk.StringVar()
                 input.set(str(self.dataSet[str(number)][item]))
-                print(str(self.dataSet[str(number)][item]), item)
                 self.d[i].configure(textvariable=input)
             if i == len(self.dataSet[str(number)]) - 1:
                 self.loadImage(path=self.dataSet[str(number)][item])

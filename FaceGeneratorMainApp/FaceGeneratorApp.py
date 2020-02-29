@@ -2,10 +2,11 @@ import os
 import sys
 import tkinter as tk
 from tkinter import font as tkfont
-from DatabaseFrontend.MenuPage import Menu
-from DatabaseFrontend.GeneratorPage import GeneratorPage
-from DatabaseFrontend.DatabasePage import DatabasePage
-from DatabaseBackend.Backend import DbProvider
+
+from FaceGeneratorMainApp.DatabaseFrontend.MenuPage import Menu
+from FaceGeneratorMainApp.DatabaseFrontend.DatabasePage import DatabasePage
+from FaceGeneratorMainApp.DatabaseFrontend.GeneratorPage import GeneratorPage
+from FaceGeneratorMainApp.DatabaseBackend.Backend import DbProvider
 
 
 class App(tk.Tk):
@@ -71,7 +72,7 @@ class App(tk.Tk):
         try:
             base_path = sys._MEIPASS
         except Exception:
-            base_path = os.path.abspath(".")
+            base_path = os.path.abspath("..")
         return os.path.join(base_path, relative_path)
 
 

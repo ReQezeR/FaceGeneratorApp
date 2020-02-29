@@ -7,7 +7,7 @@ Na podstawie otrzymanej mapy, rozdzielamy obraz wejściowy na obrazy poszczegól
 Następnie przy pomocy aplikacji głównej (**FaceGeneratorApp.py**) z dostępnych w bazie danych elementów generujemy losowe twarze.  
   
 Schemat bazy danych wykorzystany przy tworzeniu aplikacji:
-![DatabaseDiagram](DatabaseBackend/DB_Diagram.png)
+![DatabaseDiagram](FaceGeneratorMainApp/DatabaseBackend/DB_Diagram.png)
 
 ### DbProvider - klasa odpowiedzialna za obsługę bazy danych
 * `random_features` - losuje cechy z bazy danych

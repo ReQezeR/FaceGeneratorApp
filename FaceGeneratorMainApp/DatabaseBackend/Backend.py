@@ -178,7 +178,7 @@ class DbProvider:
         return dataset
 
     def __init__(self):
-        self.path = self.database_path('DB\db.sqlite')
+        self.path = self.database_path('DB/db.sqlite')
         self.dataSet = {}
 
         if not os.path.isfile(self.path):

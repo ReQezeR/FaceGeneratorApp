@@ -7,7 +7,7 @@ Based on the received map, we separate the input image into images of individual
 Then, using the main application (**FaceGeneratorApp.py**) we generate random faces from the elements available in the database.  
 
 Database schema used to create the application:
-![DatabaseDiagram](DatabaseBackend/DB_Diagram.png)
+![DatabaseDiagram](FaceGeneratorMainApp/DatabaseBackend/DB_Diagram.png)
 
 ### DbProvider
 * `random_features` - randomizes features from the database
