@@ -74,15 +74,17 @@ Later those points are used to cut image into proper pieces which are used in ge
   "r_eyebrow":[[268, 200],[276, 191],[291, 188],[306, 186],[324, 186],[336, 191],[345, 199],[331, 198],[317, 196],[297, 196],[282, 198]]
 }
 ```
+**Application GUI**
+![alt text](https://github.com/ReQezeR/FaceGeneratorApp/blob/master/sampleFGDA.png "FGDA GUI")
 
 ### How to run Face Generator Desktop App (FGDA)
 You need to install [Node.js](https://nodejs.org/en/) to be able to use [npm](https://www.npmjs.com/) packages.
 
-Go into FaceGeneratorDesktop directory and run this command:
-`npm install`
-This command will install all packages
-Then if you want to run app use
-`npm start`
+Go into FaceGeneratorDesktop directory and run this command - 
+`npm install`.
+This command will install all packages.
+Then if you want to run app use - 
+`npm start`.
 It will start the app in debug mode (with console open).
 
 ## Attributions 
