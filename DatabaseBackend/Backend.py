@@ -30,7 +30,7 @@ class DbProvider:
         def nose():
             nose = self.custom_select("SELECT * FROM Nose e WHERE e.SkinType=LOWER('{}')".format(skintype))
             number = random.randint(1, nose.__len__())
-            nose_path = nose['{}'.format(number)]['Path']
+            nose_path = nose['{}'.format(number-1)]['Path']
             feature_list['nose'] = nose_path
             return number
 
@@ -78,7 +78,7 @@ class DbProvider:
 
         def hair():
             hair = self.custom_select("SELECT * FROM Hair e WHERE e.SkinType=LOWER('{}')".format(skintype))
-            number = random.randint(1, hair.__len__() )
+            number = random.randint(1, hair.__len__())
             path = hair['{}'.format(number-1)]['Path']
             feature_list['hair'] = path
             return number
@@ -454,8 +454,8 @@ class DbProvider:
     class AttributeAssignment:  # AttributeAssignment
         # TODO: add foregin key for EyeBrows!
         def insert_into_table(self, faceID, eyesID, eyebrowsID, noseID, mouthID, earsID, hairID):
-            sql = '''INSERT INTO AttributeAssignment (FaceID, EyesID, NoseID, MouthID, EarsID, HairID)
-            VALUES ({},{},{},{},{},{});'''.format(faceID, eyesID, noseID, mouthID, earsID, hairID)
+            sql = '''INSERT INTO AttributeAssignment (FaceID, EyesID, EyeBrowsID, NoseID, MouthID, EarsID, HairID)
+            VALUES ({},{},{},{},{},{},{});'''.format(faceID, eyesID, eyebrowsID, noseID, mouthID, earsID, hairID)
             self.cursor.execute(sql)
             self.connection.commit()
 
@@ -466,12 +466,14 @@ class DbProvider:
             (ID INTEGER PRIMARY KEY AUTOINCREMENT,
             FaceID INTEGER,
             EyesID INTEGER,
+            EyeBrowsID INTEGER,
             NoseID INTEGER,
             MouthID INTEGER,
             EarsID INTEGER,
             HairID INTEGER,
             FOREIGN KEY(FaceID) references Face(ID),
             FOREIGN KEY(EyesID) references Eyes(ID),
+            FOREIGN KEY(EyeBrowsID) references EyeBrows(ID),
             FOREIGN KEY(NoseID) references Nose(ID),
             FOREIGN KEY(MouthID) references Mouth(ID),
             FOREIGN KEY(EarsID) references Ears(ID),
