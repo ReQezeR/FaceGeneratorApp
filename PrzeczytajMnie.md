@@ -105,7 +105,7 @@ W celu uproszczenia tworzenia wpisów w bazie danych ograniczono się do skorzys
 Aby móc korzystać z aplikacji musisz zainstalować [Python 3.6.6](https://www.python.org/downloads/release/python-366/)
 oraz niezbędne biblioteki.  
 
-Przejdź do katalogu głównego aplikacji i uruchom to polecenie - `python Program.py`.  
+Przejdź do katalogu głównego aplikacji i uruchom to polecenie - `python FaceGeneratorApp.py`.  
 Uruchomi to aplikację w trybie okienkowym.
 
 
