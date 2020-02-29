@@ -297,3 +297,6 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 /FaceGeneratorMainApp/Files/
+/FaceGeneratorMainApp/Files/
+/FaceGeneratorMainApp/Files/Faces/
+/FaceGeneratorMainApp/Files/Features/InputFace-00/
