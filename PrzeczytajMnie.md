@@ -4,7 +4,7 @@ FaceGeneratorApp to projekt na zajęcia Bazy Danych, napisany w językach Python
 ## Opis
 Używając **Face Generator Desktop App** mapujemy wygenerowane przez AI twarze: https://generated.photos/.  
 Na podstawie otrzymanej mapy, rozdzielamy obraz wejściowy na obrazy poszczególnych cech, informacje o nich przechowujemy w Bazie Danych.  
-Następnie przy pomocy aplikacji głównej (**FaceGeneratorApp.py**) z dostępnych w bazie danych elementów generujemy losowe twarze.  
+Następnie przy pomocy aplikacji głównej ([**FaceGeneratorApp.py**](FaceGeneratorMainApp/FaceGeneratorApp.py)) z dostępnych w bazie danych elementów generujemy losowe twarze.  
   
 Schemat bazy danych wykorzystany przy tworzeniu aplikacji:
 ![DatabaseDiagram](FaceGeneratorMainApp/DatabaseBackend/DB_Diagram.png)
@@ -105,7 +105,7 @@ W celu uproszczenia tworzenia wpisów w bazie danych ograniczono się do skorzys
 Aby móc korzystać z aplikacji musisz zainstalować [Python 3.6.6](https://www.python.org/downloads/release/python-366/)
 oraz niezbędne biblioteki.  
 
-Przejdź do katalogu głównego aplikacji i uruchom to polecenie - `python FaceGeneratorApp.py`.  
+Przejdź do katalogu FaceGeneratorMainApp i uruchom to polecenie - `python FaceGeneratorApp.py`.  
 Uruchomi to aplikację w trybie okienkowym.
 
 
@@ -115,7 +115,8 @@ Uruchomi to aplikację w trybie okienkowym.
 
 ## Face Generator Desktop App - aplikacja do oznaczania chech na obrazie
 ### What is Face Generator Desktop App (FGDA)
-Aplikacja Face Generator Desktop (FGDA) jest napisana w języku JavaScript przy użyciu frameworku Electron. Możesz przeczytać więcej o elektronie [tutaj](https://www.electronjs.org/docs)  
+Aplikacja Face Generator Desktop (FGDA) jest napisana w języku JavaScript przy użyciu frameworku Electron.  
+Możesz przeczytać więcej o elektronie [tutaj](https://www.electronjs.org/docs)  
 
 FGDA to prosta aplikacja komputerowa, która służy do wybierania odpowiednich masek / wektorów danej twarzy.
 Korzystając z FGDA, możemy wybrać:
@@ -149,7 +150,7 @@ Później punkty te są używane do cięcia obrazu na odpowiednie kawałki, któ
 }
 ```
 **Interfejs graficzny aplikacji**
-![alt text](https://github.com/ReQezeR/FaceGeneratorApp/blob/master/sampleFGDA.png "FGDA GUI")
+![alt text](https://github.com/ReQezeR/FaceGeneratorApp/blob/master/FaceGeneratorDesktop/sampleFGDA.png "FGDA GUI")
 
 ### Jak uruchomić Face Generator Desktop App (FGDA)
 Aby móc korzystać z pakietów [npm](https://www.npmjs.com/), musisz zainstalować [Node.js](https://nodejs.org/en/).
@@ -169,4 +170,4 @@ Uruchomi to aplikację w trybie debugowania (z otwartą konsolą).
 
 ## Podsumowanie
 Projekt został przeprowadzony podczas zajęć projektowych Bazy Danych na Politechnice Poznańskiej.  
-Opiekun: **Krzysztof Zwierzyński**
+Opiekun: [**DR INŻ. KRZYSZTOF ZWIERZYŃSKI**](https://sin.put.poznan.pl/people/details/krzysztof.zwierzynski)
