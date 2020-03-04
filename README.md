@@ -102,15 +102,35 @@ To simplify the creation of entries in the database, it is limited to using the 
 * Electron 
 
 ## How to run FaceGeneratorApp
+### First way: 
 To use the application you must install [Python 3.6.6](https://www.python.org/downloads/release/python-366/)
 and necessary libraries.  
   
 Go into FaceGeneratorMainApp directory and run this command - `python FaceGeneratorApp.py`.
 This will launch the application in windowed mode.
+### Second way:
+Go to project directory and run FaceGeneratorApp.exe
+
+## How to start with FaceGeneratorApp
+After starting the application, two DB/ and Files/ folders will be created.    
+The DB directory contains a database file and Files folder contains a Features subfolder.   
+Use FGDA and FilesCreator.py tools to create the appropriate files.   
+Put the folder created by FilesCreator in Files/Features/ and go back to FaceGeneratorApp.  
+Go to "Database" page and click "InsertData" button. Now you can select the appropriate data.  
+In input field "Directory" please type name of the folder created by FilesCreator.  
+Finally select "Insert" button and go to Generator page to generate random faces.
+
 
 ## Future improvements
 * Code refactoring
 * Improved generator operation (optimization of element placement)
+
+## How to run FilesCreator
+To use the application you must install [Python 3.6.6](https://www.python.org/downloads/release/python-366/)
+and necessary libraries.  
+  
+Go into FaceGeneratorMainApp directory and run this command - `python FilesCreator.py`.
+This will launch the application in console mode.
 
 ## Face Generator Desktop App
 ### What is Face Generator Desktop App (FGDA)
