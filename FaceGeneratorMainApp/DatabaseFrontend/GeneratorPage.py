@@ -19,10 +19,11 @@ class GeneratorPage(tk.Frame):
         size = (500, 400)
         if path != None:
             self.placeholderImage = Image.open(str(path))
-        resized = self.placeholderImage.resize(size, Image.ANTIALIAS)
-        self.image = ImageTk.PhotoImage(resized)
-        self.display.delete("IMG")
-        self.display.create_image(0, 0, image=self.image, anchor=tk.NW, tags="IMG")
+        if self.placeholderImage is not None:
+            resized = self.placeholderImage.resize(size, Image.ANTIALIAS)
+            self.image = ImageTk.PhotoImage(resized)
+            self.display.delete("IMG")
+            self.display.create_image(0, 0, image=self.image, anchor=tk.NW, tags="IMG")
 
     def resize(self, event):
         # size = (int(590+self.winfo_width() *0.1), int(400 + self.winfo_height()*0.2))
@@ -232,9 +233,13 @@ class GeneratorPage(tk.Frame):
         self.table_nfont = tkfont.Font(family='Helvetica', size=20)
         self.generatorTitleImage = ImageTk.PhotoImage(Image.open("Images/GeneratorPage/generatorTitleImage.png"))
         self.tgti = Image.open("Images/GeneratorPage/generatorTitleImage.png")
-        self.placeholderImage = Image.open("Files/Faces/Face_2020-02-27_02-52-56.png")
         self.returnButtonImage = ImageTk.PhotoImage(Image.open("Images/returnButton.png"))
         self.randomButtonImage = ImageTk.PhotoImage(Image.open("Images/GeneratorPage/randomButton.png"))
+        try:
+            self.placeholderImage = Image.open("Files/Faces/Face_2020-02-27_02-52-56.png")
+        except:
+            print("FileNotFoundError")
+            self.placeholderImage = None
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent, bg="white", width=1200, height=650)
@@ -248,7 +253,10 @@ class GeneratorPage(tk.Frame):
         self.x = self.winfo_reqwidth()
         self.y = self.winfo_reqheight()
 
-        self.image = ImageTk.PhotoImage(self.placeholderImage)
+        if self.placeholderImage is not None:
+            self.image = ImageTk.PhotoImage(self.placeholderImage)
+        else:
+            self.image = None
         # self.bind("<Configure>", self.resize)
 
         self.createHeader().pack(side=tk.TOP, expand=False)  # Create header
