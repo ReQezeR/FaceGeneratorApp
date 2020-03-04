@@ -11,11 +11,11 @@ class Menu(tk.Frame):
         self.testColor = "orange"
         self.white = "#FFFFFF"
         self.Table_font = tkfont.Font(family='Helvetica', size=20, weight="bold", slant="italic")
-        self.databaseMenuButton = ImageTk.PhotoImage(Image.open("Images/MenuPage/databaseButtonImage.png"))
-        self.generatorMenuButton = ImageTk.PhotoImage(Image.open("Images/MenuPage/generatorButtonImage.png"))
-        self.helpMenuButton = ImageTk.PhotoImage(Image.open("Images/MenuPage/helpButtonImage.png"))
-        self.customButtonImage = ImageTk.PhotoImage(Image.open("Images/defaultButtonImage.png"))
-        self.menuLabelImage = ImageTk.PhotoImage(Image.open("Images/MenuPage/menuLabelImage.png"))
+        self.databaseMenuButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\DatabaseButtonImage.png")))
+        self.generatorMenuButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\generatorButtonImage.png")))
+        self.helpMenuButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\helpButtonImage.png")))
+        self.customButtonImage = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\defaultButtonImage.png")))
+        self.menuLabelImage = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\menuLabelImage.png")))
 
     def createMenu(self, parent):
         main_frame = tk.Frame(parent, borderwidth=20, background="#FFFFFF")

@@ -67,8 +67,6 @@ class App(tk.Tk):
 
     # path to files include in exe
     def resource_path(self, relative_path):
-        default = "Frontend/Images/"
-        relative_path = default + relative_path
         try:
             base_path = sys._MEIPASS
         except Exception:

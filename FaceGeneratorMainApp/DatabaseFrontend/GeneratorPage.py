@@ -230,12 +230,12 @@ class GeneratorPage(tk.Frame):
     def setTheme(self):
         self.table_ifont = tkfont.Font(family='Helvetica', size=20, slant="roman")
         self.table_nfont = tkfont.Font(family='Helvetica', size=20)
-        self.generatorTitleImage = ImageTk.PhotoImage(Image.open("Images/GeneratorPage/generatorTitleImage.png"))
-        self.tgti = Image.open("Images/GeneratorPage/generatorTitleImage.png")
-        self.returnButtonImage = ImageTk.PhotoImage(Image.open("Images/returnButton.png"))
-        self.randomButtonImage = ImageTk.PhotoImage(Image.open("Images/GeneratorPage/randomButton.png"))
+        self.generatorTitleImage = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\GeneratorPage\\generatorTitleImage.png")))
+        self.tgti = Image.open(self.controller.resource_path("Images\\GeneratorPage\\generatorTitleImage.png"))
+        self.returnButtonImage = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\returnButton.png")))
+        self.randomButtonImage = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\GeneratorPage/randomButton.png")))
         try:
-            self.placeholderImage = Image.open("Files/Faces/Face_2020-02-27_02-52-56.png")
+            self.placeholderImage = Image.open(self.controller.resource_path("Files\\Faces\\Face_2020-02-27_02-52-56.png"))
         except:
             print("FileNotFoundError")
             self.placeholderImage = None

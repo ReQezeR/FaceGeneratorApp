@@ -25,15 +25,14 @@ class DatabasePage(tk.Frame):
         self.table_ifont = tkfont.Font(family='Helvetica', size=20, slant="roman")
         self.table_nfont = tkfont.Font(family='Helvetica', size=20)
         self.Table_font = tkfont.Font(family='Helvetica', size=20, weight="bold", slant="italic")
-        self.databaseLabel = ImageTk.PhotoImage(Image.open("Images/DatabasePage/databaseMenuLabel.png"))
-        self.generatorMenuButton = ImageTk.PhotoImage(Image.open("Images/MenuPage/generatorButtonImage.png"))
-        self.helpMenuButton = ImageTk.PhotoImage(Image.open("Images/MenuPage/helpButtonImage.png"))
-        self.customButtonImage = ImageTk.PhotoImage(Image.open("Images/defaultButtonImage.png"))
-        self.menuLabelImage = ImageTk.PhotoImage(Image.open("Images/MenuPage/menuLabelImage.png"))
-        self.returnButtonImage = ImageTk.PhotoImage(Image.open("Images/returnButton.png"))
-
-        self.getDataButton = ImageTk.PhotoImage(Image.open("Images/DatabasePage/showDataButton.png"))
-        self.insertDataButton = ImageTk.PhotoImage(Image.open("Images/DatabasePage/insertDataButton.png"))
+        self.databaseLabel = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\DatabasePage\\databaseMenuLabel.png")))
+        self.generatorMenuButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\generatorButtonImage.png")))
+        self.helpMenuButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\helpButtonImage.png")))
+        self.customButtonImage = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\defaultButtonImage.png")))
+        self.menuLabelImage = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\menuLabelImage.png")))
+        self.returnButtonImage = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\returnButton.png")))
+        self.getDataButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\DatabasePage\\showDataButton.png")))
+        self.insertDataButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\DatabasePage\\insertDataButton.png")))
 
     def createMenu(self, parent):
         main_frame = tk.Frame(parent, borderwidth=20, background="#FFFFFF")
