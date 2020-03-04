@@ -46,8 +46,8 @@ class App(tk.Tk):
         self.destroy()
 
     def make_window_bigger(self):
-        self.geometry('1200x650')
-        self.minsize(1200, 650)
+        self.geometry('1300x650')
+        self.minsize(1300, 650)
 
     def make_window_smaller(self):
         self.geometry('440x650')
