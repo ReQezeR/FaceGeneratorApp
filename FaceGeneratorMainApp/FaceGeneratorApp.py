@@ -3,10 +3,10 @@ import sys
 import tkinter as tk
 from tkinter import font as tkfont
 
-from FaceGeneratorMainApp.DatabaseFrontend.MenuPage import Menu
-from FaceGeneratorMainApp.DatabaseFrontend.DatabasePage import DatabasePage
-from FaceGeneratorMainApp.DatabaseFrontend.GeneratorPage import GeneratorPage
-from FaceGeneratorMainApp.DatabaseBackend.Backend import DbProvider
+from DatabaseFrontend.MenuPage import Menu
+from DatabaseFrontend.DatabasePage import DatabasePage
+from DatabaseFrontend.GeneratorPage import GeneratorPage
+from DatabaseBackend.Backend import DbProvider
 
 
 class App(tk.Tk):

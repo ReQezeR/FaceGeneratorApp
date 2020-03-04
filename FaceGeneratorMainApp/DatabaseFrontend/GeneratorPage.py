@@ -5,9 +5,9 @@ from datetime import datetime
 from tkinter import font as tkfont
 from PIL import Image, ImageTk
 import cv2
-from FaceGeneratorMainApp.DatabaseBackend.Backend import DbProvider
-from FaceGeneratorMainApp.DatabaseBackend.ThreadManagement import ThreadWithTrace
-from FaceGeneratorMainApp.Generator.Generator import Generator
+from DatabaseBackend.Backend import DbProvider
+from DatabaseBackend.ThreadManagement import ThreadWithTrace
+from Generator.Generator import Generator
 
 
 class GeneratorPage(tk.Frame):
@@ -78,8 +78,7 @@ class GeneratorPage(tk.Frame):
             try:
                 os.mkdir(self.file_path("Files\\Faces"))
             except:
-                # pass
-                print("Nie mozna utworzyc folderu")
+                pass
         filename = "Face_" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S')+".png"
         path = "Files\\Faces\\"+filename
         DbProvider().appearance.insert_into_table(temp[0], "white", path)
@@ -269,3 +268,12 @@ class GeneratorPage(tk.Frame):
         random_button = tk.Button(self, text="Random", image=self.randomButtonImage, bd=0, bg="white",
                                   command=lambda: self.runGenerator())  # Create random button
         random_button.pack(side=tk.RIGHT, fill=tk.X, padx=10, pady=5)
+
+        try:
+            os.mkdir(os.path.join(os.environ.get("_MEIPASS2", os.path.abspath(".")), "Files"))
+        except:
+            pass
+        try:
+            os.mkdir(os.path.join(os.environ.get("_MEIPASS2", os.path.abspath(".")), "Files\\Features\\"))
+        except:
+            pass
