@@ -42,7 +42,7 @@ class App(tk.Tk):
             self.t1.kill()
             self.t1.join()
         except:
-            print("Nie mozna zakonczyc watku")
+            print("thread exit error")
         self.destroy()
 
     def make_window_bigger(self):

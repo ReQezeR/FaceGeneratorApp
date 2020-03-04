@@ -12,17 +12,17 @@ from FaceGeneratorMainApp.Generator.Generator import Generator
 
 class GeneratorPage(tk.Frame):
     def file_path(self, relative):
-        p = os.path.join(os.environ.get("_MEIPASS2", os.path.abspath("")), relative)
+        p = os.path.join(os.environ.get("_MEIPASS2", os.path.abspath(".")), relative)
         return p
 
     def loadImage(self, path=None):
         size = (500, 400)
         if path != None:
             self.placeholderImage = Image.open(str(path))
-            resized = self.placeholderImage.resize(size, Image.ANTIALIAS)
-            self.image = ImageTk.PhotoImage(resized)
-            self.display.delete("IMG")
-            self.display.create_image(0, 0, image=self.image, anchor=tk.NW, tags="IMG")
+        resized = self.placeholderImage.resize(size, Image.ANTIALIAS)
+        self.image = ImageTk.PhotoImage(resized)
+        self.display.delete("IMG")
+        self.display.create_image(0, 0, image=self.image, anchor=tk.NW, tags="IMG")
 
     def resize(self, event):
         # size = (int(590+self.winfo_width() *0.1), int(400 + self.winfo_height()*0.2))
@@ -73,10 +73,11 @@ class GeneratorPage(tk.Frame):
         g.create_face()
         lock = threading.Lock()
         lock.acquire()
-        if not os.path.isfile("Files\\Faces\\"):
+        if not os.path.isdir("Files\\Faces"):
             try:
-                os.mkdir(self.file_path("Files\\Faces\\"))
+                os.mkdir(self.file_path("Files\\Faces"))
             except:
+                # pass
                 print("Nie mozna utworzyc folderu")
         filename = "Face_" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S')+".png"
         path = "Files\\Faces\\"+filename
@@ -91,22 +92,25 @@ class GeneratorPage(tk.Frame):
         i = 0
         number = 0
 
-        labels = list(self.dataSet[str(number)].keys())
+        try:
+            labels = list(self.dataSet[str(number)].keys())
 
-        for label in labels:
-            self.l[i].configure(text=str(label))
-            i += 1
-        i = 0
-        for item in self.dataSet[str(number)]:
-            if self.table_version == 1:
-                self.d[i].configure(text=self.dataSet[str(number)][item])
-            elif self.table_version == 2:
-                input = tk.StringVar()
-                input.set(str(self.dataSet[str(number)][item]))
-                self.d[i].configure(textvariable=input)
-            if i == len(self.dataSet[str(number)]) - 1:
-                self.loadImage(path=self.dataSet[str(number)][item])
-            i += 1
+            for label in labels:
+                self.l[i].configure(text=str(label))
+                i += 1
+            i = 0
+            for item in self.dataSet[str(number)]:
+                if self.table_version == 1:
+                    self.d[i].configure(text=self.dataSet[str(number)][item])
+                elif self.table_version == 2:
+                    input = tk.StringVar()
+                    input.set(str(self.dataSet[str(number)][item]))
+                    self.d[i].configure(textvariable=input)
+                if i == len(self.dataSet[str(number)]) - 1:
+                    self.loadImage(path=self.dataSet[str(number)][item])
+                i += 1
+        except:
+            self.loadImage()
 
     def changeGenerated(self):
         self.dataSet = DbProvider().custom_select("SELECT * FROM Appearance ORDER BY ID DESC LIMIT 1;")
@@ -136,6 +140,8 @@ class GeneratorPage(tk.Frame):
         ipx = 2
         py = 2
         self.table_version = 2
+        txt = tk.StringVar()
+        txt.set("PLACEHOLDER")
 
         dataFrame = tk.Frame(parent, width=430, bd=0, bg="white")
         dataFrame.columnconfigure(0, weight=1)
@@ -147,23 +153,23 @@ class GeneratorPage(tk.Frame):
         dataFrame.rowconfigure(4, weight=1)
         dataFrame.rowconfigure(5, weight=1)
 
-        self.l[0] = tk.Label(dataFrame, text="Nazwa:", anchor="w", font=self.table_ifont, width=cell_width, bd=1,
+        self.l[0] = tk.Label(dataFrame, text="ID:", anchor="w", font=self.table_ifont, width=cell_width, bd=1,
                              relief="solid", bg="white")
         self.l[0].grid(row=0, column=0, sticky="ew", ipady=py, ipadx=ipx, padx=px)
 
-        self.l[1] = tk.Label(dataFrame, text="ID:", anchor="w", font=self.table_ifont, width=cell_width, bd=1,
+        self.l[1] = tk.Label(dataFrame, text="AssignmentID:", anchor="w", font=self.table_ifont, width=cell_width, bd=1,
                              relief="solid", bg="white")
         self.l[1].grid(row=1, column=0, sticky="ew", ipady=py, ipadx=ipx, padx=px)
 
-        self.l[2] = tk.Label(dataFrame, text="Pozycja:", anchor="w", font=self.table_ifont, width=cell_width, bd=1,
+        self.l[2] = tk.Label(dataFrame, text="SkinType:", anchor="w", font=self.table_ifont, width=cell_width, bd=1,
                              relief="solid", bg="white")
         self.l[2].grid(row=2, column=0, sticky="ew", ipady=py, ipadx=ipx, padx=px)
 
-        self.l[3] = tk.Label(dataFrame, text="Path:", anchor="w", font=self.table_ifont, width=cell_width, bd=1,
+        self.l[3] = tk.Label(dataFrame, text="Date:", anchor="w", font=self.table_ifont, width=cell_width, bd=1,
                              relief="solid", bg="white")
         self.l[3].grid(row=3, column=0, sticky="ew", ipady=py, ipadx=ipx, padx=px)
 
-        self.l[4] = tk.Label(dataFrame, text="XD:", anchor="w", font=self.table_ifont, width=cell_width, bd=1,
+        self.l[4] = tk.Label(dataFrame, text="Path:", anchor="w", font=self.table_ifont, width=cell_width, bd=1,
                              relief="solid", bg="white")
         self.l[4].grid(row=4, column=0, sticky="ew", ipady=py, ipadx=ipx, padx=px)
 
@@ -180,15 +186,15 @@ class GeneratorPage(tk.Frame):
             self.d[3].grid(row=3, column=1, sticky="ew", pady=py, padx=px)
         elif self.table_version == 2:
             cell_width = 8
-            self.d[0] = tk.Entry(dataFrame, bd=2, font=self.table_nfont, width=cell_width * 2)
+            self.d[0] = tk.Entry(dataFrame, textvariable=txt, bd=2, font=self.table_nfont, width=cell_width * 2)
             self.d[0].grid(row=0, column=1, pady=py, padx=px, sticky="ew")
-            self.d[1] = tk.Entry(dataFrame, bd=2, font=self.table_nfont, width=cell_width * 2)
+            self.d[1] = tk.Entry(dataFrame, textvariable=txt, bd=2, font=self.table_nfont, width=cell_width * 2)
             self.d[1].grid(row=1, column=1, pady=py, padx=px, sticky="ew")
-            self.d[2] = tk.Entry(dataFrame, bd=2, font=self.table_nfont, width=cell_width * 2)
+            self.d[2] = tk.Entry(dataFrame, textvariable=txt, bd=2, font=self.table_nfont, width=cell_width * 2)
             self.d[2].grid(row=2, column=1, pady=py, padx=px, sticky="ew")
-            self.d[3] = tk.Entry(dataFrame, bd=2, font=self.table_nfont, width=cell_width * 2)
+            self.d[3] = tk.Entry(dataFrame, textvariable=txt, bd=2, font=self.table_nfont, width=cell_width * 2)
             self.d[3].grid(row=3, column=1, pady=py, padx=px, sticky="ew")
-            self.d[4] = tk.Entry(dataFrame, bd=2, font=self.table_nfont, width=cell_width * 2)
+            self.d[4] = tk.Entry(dataFrame, textvariable=txt, bd=2, font=self.table_nfont, width=cell_width * 2)
             self.d[4].grid(row=4, column=1, pady=py, padx=px, sticky="ew")
 
         self.changeData()  # Initialize data

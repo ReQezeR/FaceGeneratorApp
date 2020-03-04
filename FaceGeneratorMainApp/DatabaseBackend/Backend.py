@@ -148,6 +148,7 @@ class DbProvider:
 
     def database_path(self, relative):
         p = os.path.join(os.environ.get("_MEIPASS2", os.path.abspath(".")), relative)
+        # print("Path:", p)
         return p
 
     def get_data_from_table(self, table_name):
@@ -178,7 +179,7 @@ class DbProvider:
         return dataset
 
     def __init__(self):
-        self.path = self.database_path('DB/db.sqlite')
+        self.path = self.database_path('DB\\db.sqlite')
         self.dataSet = {}
 
         if not os.path.isfile(self.path):
@@ -503,86 +504,87 @@ class DbProvider:
             self.cursor.execute(sql)
             self.connection.commit()
 
+
 if __name__ == "__main__":
     db = DbProvider()
-    # # first face
-    # db.addEyes("small", "blue", "white", "InputFace-01")
-    # db.addEars("small", "white", "InputFace-01")
-    # db.addEyeBrows("small", "bright", "white", "InputFace-01")
-    # db.addNose("small", "white", "InputFace-01")
-    # db.addMouth("small", "white", "InputFace-01")
-    # db.addHair("long", "bright", "white", "InputFace-01")
-    # db.addFace("white", "small", "InputFace-01")
-    # # second face
-    # db.addEyes("small", "brown", "white", "InputFace-02")
-    # db.addEars("small", "white", "InputFace-02")
-    # db.addEyeBrows("small", "dark", "white", "InputFace-02")
-    # db.addNose("small", "white", "InputFace-02")
-    # db.addMouth("small", "white", "InputFace-02")
-    # db.addHair("long", "dark", "white", "InputFace-02")
-    # db.addFace("white", "small", "InputFace-02")
-    # # third face
-    # db.addEyes("small", "blue", "white", "InputFace-03")
-    # db.addEars("small", "white", "InputFace-03")
-    # db.addEyeBrows("small", "bright", "white", "InputFace-03")
-    # db.addNose("small", "white", "InputFace-03")
-    # db.addMouth("small", "white", "InputFace-03")
-    # db.addHair("long", "bright", "white", "InputFace-03")
-    # db.addFace("white", "small", "InputFace-03")
-    # # 4th face
-    # db.addEyes("small", "blue", "white", "InputFace-04")
-    # db.addEars("small", "white", "InputFace-04")
-    # db.addEyeBrows("small", "bright", "white", "InputFace-04")
-    # db.addNose("small", "white", "InputFace-04")
-    # db.addMouth("small", "white", "InputFace-04")
-    # db.addHair("long", "bright", "white", "InputFace-04")
-    # db.addFace("white", "small", "InputFace-04")
-    # # 5th face
-    # db.addEyes("small", "blue", "white", "InputFace-05")
-    # db.addEars("small", "white", "InputFace-05")
-    # db.addEyeBrows("small", "bright", "white", "InputFace-05")
-    # db.addNose("small", "white", "InputFace-05")
-    # db.addMouth("small", "white", "InputFace-05")
-    # db.addHair("long", "bright", "white", "InputFace-05")
-    # db.addFace("white", "small", "InputFace-05")
-    # # 6th face
-    # db.addEyes("medium", "brown", "white", "InputFace-06")
-    # db.addEars("medium", "white", "InputFace-06")
-    # db.addEyeBrows("medium", "dark", "white", "InputFace-06")
-    # db.addNose("medium", "white", "InputFace-06")
-    # db.addMouth("medium", "white", "InputFace-06")
-    # db.addHair("short", "dark", "white", "InputFace-06")
-    # db.addFace("white", "medium", "InputFace-06")
-    # # 7th face
-    # db.addEyes("medium", "brown", "white", "InputFace-07")
-    # db.addEars("medium", "white", "InputFace-07")
-    # db.addEyeBrows("medium", "dark", "white", "InputFace-07")
-    # db.addNose("medium", "white", "InputFace-07")
-    # db.addMouth("medium", "white", "InputFace-07")
-    # db.addHair("short", "dark", "white", "InputFace-07")
-    # db.addFace("white", "medium", "InputFace-07")
-    # # 8th face
-    # db.addEyes("medium", "blue", "white", "InputFace-08")
-    # db.addEars("medium", "white", "InputFace-08")
-    # db.addEyeBrows("medium", "bright", "white", "InputFace-08")
-    # db.addNose("medium", "white", "InputFace-08")
-    # db.addMouth("medium", "white", "InputFace-08")
-    # db.addHair("short", "bright", "white", "InputFace-08")
-    # db.addFace("white", "medium", "InputFace-08")
-    # # 9th face
-    # db.addEyes("medium", "blue", "white", "InputFace-09")
-    # db.addEars("medium", "white", "InputFace-09")
-    # db.addEyeBrows("medium", "bright", "white", "InputFace-09")
-    # db.addNose("medium", "white", "InputFace-09")
-    # db.addMouth("medium", "white", "InputFace-09")
-    # db.addHair("short", "bright", "white", "InputFace-09")
-    # db.addFace("white", "medium", "InputFace-09")
-    # # 10th face
-    # db.addEyes("medium", "blue", "white", "InputFace-10")
-    # db.addEars("medium", "white", "InputFace-10")
-    # db.addEyeBrows("medium", "dark", "white", "InputFace-10")
-    # db.addNose("medium", "white", "InputFace-10")
-    # db.addMouth("medium", "white", "InputFace-10")
-    # db.addHair("short", "dark", "white", "InputFace-10")
-    # db.addFace("white", "medium", "InputFace-10")
-    # db.random_features("white")
+    # first face
+    db.addEyes("small", "blue", "white", "InputFace-01")
+    db.addEars("small", "white", "InputFace-01")
+    db.addEyeBrows("small", "bright", "white", "InputFace-01")
+    db.addNose("small", "white", "InputFace-01")
+    db.addMouth("small", "white", "InputFace-01")
+    db.addHair("long", "bright", "white", "InputFace-01")
+    db.addFace("white", "small", "InputFace-01")
+    # second face
+    db.addEyes("small", "brown", "white", "InputFace-02")
+    db.addEars("small", "white", "InputFace-02")
+    db.addEyeBrows("small", "dark", "white", "InputFace-02")
+    db.addNose("small", "white", "InputFace-02")
+    db.addMouth("small", "white", "InputFace-02")
+    db.addHair("long", "dark", "white", "InputFace-02")
+    db.addFace("white", "small", "InputFace-02")
+    # third face
+    db.addEyes("small", "blue", "white", "InputFace-03")
+    db.addEars("small", "white", "InputFace-03")
+    db.addEyeBrows("small", "bright", "white", "InputFace-03")
+    db.addNose("small", "white", "InputFace-03")
+    db.addMouth("small", "white", "InputFace-03")
+    db.addHair("long", "bright", "white", "InputFace-03")
+    db.addFace("white", "small", "InputFace-03")
+    # 4th face
+    db.addEyes("small", "blue", "white", "InputFace-04")
+    db.addEars("small", "white", "InputFace-04")
+    db.addEyeBrows("small", "bright", "white", "InputFace-04")
+    db.addNose("small", "white", "InputFace-04")
+    db.addMouth("small", "white", "InputFace-04")
+    db.addHair("long", "bright", "white", "InputFace-04")
+    db.addFace("white", "small", "InputFace-04")
+    # 5th face
+    db.addEyes("small", "blue", "white", "InputFace-05")
+    db.addEars("small", "white", "InputFace-05")
+    db.addEyeBrows("small", "bright", "white", "InputFace-05")
+    db.addNose("small", "white", "InputFace-05")
+    db.addMouth("small", "white", "InputFace-05")
+    db.addHair("long", "bright", "white", "InputFace-05")
+    db.addFace("white", "small", "InputFace-05")
+    # 6th face
+    db.addEyes("medium", "brown", "white", "InputFace-06")
+    db.addEars("medium", "white", "InputFace-06")
+    db.addEyeBrows("medium", "dark", "white", "InputFace-06")
+    db.addNose("medium", "white", "InputFace-06")
+    db.addMouth("medium", "white", "InputFace-06")
+    db.addHair("short", "dark", "white", "InputFace-06")
+    db.addFace("white", "medium", "InputFace-06")
+    # 7th face
+    db.addEyes("medium", "brown", "white", "InputFace-07")
+    db.addEars("medium", "white", "InputFace-07")
+    db.addEyeBrows("medium", "dark", "white", "InputFace-07")
+    db.addNose("medium", "white", "InputFace-07")
+    db.addMouth("medium", "white", "InputFace-07")
+    db.addHair("short", "dark", "white", "InputFace-07")
+    db.addFace("white", "medium", "InputFace-07")
+    # 8th face
+    db.addEyes("medium", "blue", "white", "InputFace-08")
+    db.addEars("medium", "white", "InputFace-08")
+    db.addEyeBrows("medium", "bright", "white", "InputFace-08")
+    db.addNose("medium", "white", "InputFace-08")
+    db.addMouth("medium", "white", "InputFace-08")
+    db.addHair("short", "bright", "white", "InputFace-08")
+    db.addFace("white", "medium", "InputFace-08")
+    # 9th face
+    db.addEyes("medium", "blue", "white", "InputFace-09")
+    db.addEars("medium", "white", "InputFace-09")
+    db.addEyeBrows("medium", "bright", "white", "InputFace-09")
+    db.addNose("medium", "white", "InputFace-09")
+    db.addMouth("medium", "white", "InputFace-09")
+    db.addHair("short", "bright", "white", "InputFace-09")
+    db.addFace("white", "medium", "InputFace-09")
+    # 10th face
+    db.addEyes("medium", "blue", "white", "InputFace-10")
+    db.addEars("medium", "white", "InputFace-10")
+    db.addEyeBrows("medium", "dark", "white", "InputFace-10")
+    db.addNose("medium", "white", "InputFace-10")
+    db.addMouth("medium", "white", "InputFace-10")
+    db.addHair("short", "dark", "white", "InputFace-10")
+    db.addFace("white", "medium", "InputFace-10")
+    db.random_features("white")
