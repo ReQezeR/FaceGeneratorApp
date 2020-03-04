@@ -154,7 +154,7 @@ class DatabasePage(tk.Frame):
             feature[0].grid(row=row_nr, column=1, pady=py, padx=px, sticky="ew")
             feature[1] = CustomOptionMenu(dataFrame, tk.StringVar(value="SkinType"), *skin_types)
             feature[1].grid(row=row_nr, column=2, pady=py, padx=px, sticky="ew")
-            feature[2] = tk.Entry(dataFrame, textvariable= tk.StringVar(value="Dictionary"), bd=2, font=self.table_nfont, width=cell_width)
+            feature[2] = tk.Entry(dataFrame, textvariable= tk.StringVar(value="Directory"), bd=2, font=self.table_nfont, width=cell_width)
             feature[2].grid(row=row_nr, column=3, pady=py, padx=px, sticky="ew")
             return feature
 

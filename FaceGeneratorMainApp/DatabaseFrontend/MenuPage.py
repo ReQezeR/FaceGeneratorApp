@@ -11,7 +11,7 @@ class Menu(tk.Frame):
         self.testColor = "orange"
         self.white = "#FFFFFF"
         self.Table_font = tkfont.Font(family='Helvetica', size=20, weight="bold", slant="italic")
-        self.databaseMenuButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\DatabaseButtonImage.png")))
+        self.databaseMenuButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\databaseButtonImage.png")))
         self.generatorMenuButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\generatorButtonImage.png")))
         self.helpMenuButton = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\MenuPage\\helpButtonImage.png")))
         self.customButtonImage = ImageTk.PhotoImage(Image.open(self.controller.resource_path("Images\\defaultButtonImage.png")))
